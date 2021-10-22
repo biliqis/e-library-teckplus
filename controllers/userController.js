@@ -5,47 +5,32 @@ const bcrypt = require("bcrypt");
 //USER REGISTER LOGIC
 const userRegister = async (req, res) => {
   try {
-		//TODO: Read about the naming convention
-		//TODO: Read about how to a name a variable, function/method and a class
-		//TODO: rename your variable properly e.g first_name should be in this format firstName, dont use - or any symbol in between
-		const {
-			first_name,
-			last_name,
-			email,
-			password,
-			phonenumber,
-			address,
-			roles,
-			gender,
-			occupation,
-		} = req.body;
-		if (!(first_name || last_name || email || password))
-			res.status(400).send("All input is required");
-		const checkUser = await User.findOne({ email });
-		if (checkUser) {
-			return res.status(409).send("User Already Exist. Please Login");
-		}
+    const { firstName, lastName, email, password , phonenumber, address, roles, gender, occupation} = req.body
+    if (!(firstName || lastName || email || password))
+      res.status(400).send("All input is required");
+    const checkUser = await User.findOne({ email });
+    if (checkUser) {
+      return res.status(409).send("User Already Exist. Please Login");
 
-		//ENCRYPTION OF PASSWORD
-		//TODO: read about Methods and Statics in mongoose
-		const salt = await bcrypt.genSalt(10);
+    }
 
-    //TODO: this can be handled inside the model
-		const encryptedPassword = await bcrypt.hash(password, salt);
-		const jwtSecretKey = process.env.JWT_SECRET;
+    //ENCRYPTION OF PASSWORD
+    const salt = await bcrypt.genSalt(10);
+    const encryptedPassword = await bcrypt.hash(password, salt);
+    const jwtSecretKey = process.env.JWT_SECRET;
 
-		const user = await User.create({
-      ...req.body,
-      //TODO: I think what you are trying to do here is set the user to have and admin role or just a normal user. 
-			ADMIN: "USER", //kindly replace with this role: "USER"
-			password: encryptedPassword,
-		});
-		const token = jwt.sign({ user_id: user._id, email }, jwtSecretKey, {
-			expiresIn: "24h",
-		});
-		const result = { user, token };
-		return res.status(201).json(result);
-	} catch (err) {
+
+  const user = await User.create({ ...req.body,ROLE:"USER", password: encryptedPassword });
+    const token = jwt.sign(
+      { user_id: user._id, email },
+      jwtSecretKey,
+      {
+        expiresIn: "24h",
+      }
+    );
+    const result = {user,token };
+    return res.status(201).json(result);
+  } catch (err) {
     console.error(err)
     return res.status(500).send(err.message)
   }
@@ -55,9 +40,8 @@ const userRegister = async (req, res) => {
 // ADMIN REGISTER LOGIC
 const adminRegister = async (req, res) => {
   try {
-    //TODO: Kindly rename this variables
-    const { first_name, last_name, email, password , phonenumber, address, roles, gender, occupation} = req.body
-    if (!(first_name || last_name || email || password))
+    const { firstName, lastName, email, password , phoneNumber, address, roles, gender, occupation} = req.body
+    if (!(firstName || lastName || email || password))
       res.status(400).send("All input is required");
     const checkAdmin = await User.findOne({ email });
     if (checkAdmin) {
@@ -67,11 +51,8 @@ const adminRegister = async (req, res) => {
 
     //ENCRYPTION OF PASSWORD
     const salt = await bcrypt.genSalt(10);
-
     const encryptedPassword = await bcrypt.hash(password, salt);
     const jwtSecretKey = process.env.JWT_SECRET;
-
-
     const admin = await User.create({ ...req.body,roles:"ADMIN", password: encryptedPassword });
     const token = jwt.sign(
       { user_id: admin._id, email,roles },
@@ -195,7 +176,7 @@ const deleteUser = async (req, res) => {
     return res.status(500).send(error.message);
   }
 }
-//TODO: write a service to get all user.
+
 
 module.exports = {
   adminLogin,

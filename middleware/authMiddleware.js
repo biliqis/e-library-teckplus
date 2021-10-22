@@ -52,7 +52,7 @@ const requireAdminAuth = (req, res, next) => {
                 res.send({ "message": err.message, "error": "unauthorized!" })
             } else {
                 console.log(decodedToken);
-                //now check if the decoded tokn has a usertype property i.e is an admin
+                // check if the decoded tokn has a usertype property i.e is an admin
                 let checkAdmin = await User.findOne({ userType: decodedToken.roles })
                 if (!checkAdmin === "ADMIN") return res.status(401).send({ message: "you are unauthorized to view this resource" })
                 res.send({ "message": decodedToken })
