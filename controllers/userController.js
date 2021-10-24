@@ -4,9 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwtSecretKey = process.env.JWT_SECRET;
 
 
-
-//USER REGISTER LOGIC
-const userRegister = async (req, res) => {
+//USER SignUp LOGIC
+const userSignUp = async (req, res) => {
   try {
     const { firstName, lastName, email, password, phonenumber, address, roles, gender, occupation } = req.body
     if (!(firstName || lastName || email || password))
@@ -15,7 +14,6 @@ const userRegister = async (req, res) => {
     if (checkUser) {
       return res.status(409).send("User Already Exist. Please Login");
     }
-
 
     const user = await User.create({ ...req.body, ROLE: "USER" });
     const token = jwt.sign(
@@ -78,7 +76,7 @@ const userLogin = async (req, res) => {
 
 
 // ADMIN REGISTER LOGIC
-const adminRegister = async (req, res) => {
+const adminSignUp= async (req, res) => {
   try {
     const { firstName, lastName, email, password, phoneNumber, address, roles, gender, occupation } = req.body
     if (!(firstName || lastName || email || password))
@@ -139,8 +137,8 @@ const adminLogin = async (req, res) => {
 }
 
 
-//UPDATED USER LOGIC
-const updatedUser = async (req, res) => {
+//UPDATE USER LOGIC
+const updateUser = async (req, res) => {
   const id = req.params.id
   try {
     console.log(id)
@@ -170,40 +168,6 @@ const deleteUser = async (req, res) => {
   }
 }
 
-//UPDATED ADMIN LOGIC
-const updatedAdmin = async (req, res) => {
-  const id = req.params.id
-  try {
-    //console.log(id)
-    const updatedAdmin = await User.findByIdAndUpdate(id, req.body, { new: true })
-    return res.status(200).json({
-      data: updatedAdmin,
-    });
-
-  } catch (error) {
-    console.error(error)
-    return res.status(500).send(error.message);
-
-  }
-}
-
-//delete admin logic
-
-const deleteAdmin = async (req, res) => {
-  const id = req.params.id
-  try {
-    const deleteAdmin = await User.findByIdAndDelete(id, req.body)
-    return res.status(200).json({
-      data: deleteAdmin
-    });
-  } catch (error) {
-    console.error(error)
-    return res.status(500).send(error.message);
-  }
-}
-
-
-
 
 
 
@@ -215,9 +179,9 @@ const deleteAdmin = async (req, res) => {
 module.exports = {
   adminLogin,
   userLogin,
-  userRegister,
-  updatedUser,
-  adminRegister,
+  userSignUp,
+  updateUser,
+  adminSignUp,
   deleteUser
 
 };

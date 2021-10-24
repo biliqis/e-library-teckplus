@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-let emailRegexVal = /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/;
-
+let emailRegexVal =
+	/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/; 
 const userSchema = new mongoose.Schema({
 	firstName: {
 		type: String,
@@ -74,6 +74,6 @@ userSchema.pre("save", async function (next) {
 	const salt = await bcrypt.genSalt();
 	this.password = await bcrypt.hash(this.password, salt);
 	next();
-});
+  });
 
-module.exports = mongoose.model('Users', userSchema)
+module.exports = mongoose.model("Users", userSchema);
