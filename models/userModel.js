@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 let emailRegexVal =
-	/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/; 
+	/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/; //REFACTOR: move validation away from here
 const userSchema = new mongoose.Schema({
 	firstName: {
 		type: String,
@@ -21,20 +21,20 @@ const userSchema = new mongoose.Schema({
 			validator: function (v) {
 				return emailRegexVal.test(v);
 			},
-			message: (mail) => `${mail.value} is not a valid email address !`,
+			message: (mail) => `${mail.value} is not a valid email address !`, //REFACTOR: move validation away from here
 		},
-		required: [true, "Please enter your email address"],
+		required: [true, "Please enter your email address"], //REFACTOR: move validation away from here
 	},
 
 	password: {
 		type: String,
-		required: [true, "Please enter your password"],
+		required: [true, "Please enter your password"], //REFACTOR: move validation away from here
 	},
 
 	phonenumber: {
 		type: String,
 		unique: true,
-		required: [true, "Please enter your phoneNumber"],
+		required: [true, "Please enter your phoneNumber"], //REFACTOR: move validation away from here
 	},
 
 	registrationDate: {
@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema({
 	},
 
 	roles: {
+		//REFACTOR: change to role
 		type: String,
 		enum: ["ADMIN", "USER"],
 	},
@@ -74,6 +75,6 @@ userSchema.pre("save", async function (next) {
 	const salt = await bcrypt.genSalt();
 	this.password = await bcrypt.hash(this.password, salt);
 	next();
-  });
+});
 
 module.exports = mongoose.model("Users", userSchema);

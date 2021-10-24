@@ -1,18 +1,16 @@
 require("dotenv").config();
-const {dbConnect} = require('./db');
+const { dbConnect } = require("./db");
 const express = require("express");
 
-
-const app = express(); 
+const app = express();
 //connection();
 app.use(express.json());
 
-app.use('/library',require('./routes/userRoutes'))
+app.use("/user", require("./routes/userRoutes"));
 
-dbConnect()
+dbConnect();
 
-
-const port = process.env.PORT||8080;
-app.listen(port, ()=> {
-  console.log(`now listening for requests on port ${port}...`);
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+	console.log(`now listening for requests on port ${port}...`);
 });
