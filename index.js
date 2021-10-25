@@ -7,10 +7,21 @@ const app = express();
 app.use(express.json());
 
 app.use("/user", require("./routes/userRoutes"));
-
-dbConnect();
-
 const port = process.env.PORT || 8080;
-app.listen(port, () => {
-	console.log(`now listening for requests on port ${port}...`);
-});
+
+async function bootstrap() {
+	try {
+		// connect to db
+		await dbConnect();
+		// connection to xyz
+
+		app.listen(port, () => {
+			console.log(`now listening for requests on port ${port}...`);
+		});
+		// listen on app
+	} catch (e) {
+		// TODO: LOG ERRORS IF THEY OCCUR
+		process.exit(1);
+	}
+}
+bootstrap();
