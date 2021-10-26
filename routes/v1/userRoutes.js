@@ -8,15 +8,13 @@ const {
 	deleteUser,
 } = require("../../controllers/userController");
 const { requireAuth } = require("../../middleware/authMiddleware");
-const { signUpValidator } = require("../../middleware/validator");
+const { signUpValidator, loginValidator, AdminloginValidator } = require("../../middleware/validator");
 
-router.get("/test", (req, res) => {
-	res.send("working fine");
-});
-router.post("/sign-up", signUpValidator, userSignUp);
-router.post("/login", userLogin);
-router.post("/admin/sign-up", adminSignUp);
-router.post("/admin/login", adminLogin);
+
+router.post("/user/sign-up", signUpValidator, userSignUp);
+router.post("/user/login",loginValidator, userLogin);
+router.post("/admin/sign-up",signUpValidator, adminSignUp);
+router.post("/admin/login", AdminloginValidator, adminLogin);
 router.patch("/update-user/:id", requireAuth, updateUser);
 router.delete("/delete-user/:id", requireAuth, deleteUser);
 module.exports = router;

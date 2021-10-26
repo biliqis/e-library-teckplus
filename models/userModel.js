@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-let emailRegexVal =
-	/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/; //REFACTOR: move validation away from here
+
 const userSchema = new mongoose.Schema({
 	firstName: {
 		type: String,
@@ -17,30 +16,19 @@ const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
 		unique: true,
-		validate: {
-			validator: function (v) {
-				return emailRegexVal.test(v);
-			},
-			message: (mail) => `${mail.value} is not a valid email address !`, //REFACTOR: move validation away from here
-		},
-		required: [true, "Please enter your email address"], //REFACTOR: move validation away from here
+		required: true,
 	},
 
 	password: {
 		type: String,
-		required: [true, "Please enter your password"], //REFACTOR: move validation away from here
+		required: true,
 	},
 
 	phonenumber: {
 		type: String,
 		unique: true,
-		required: [true, "Please enter your phoneNumber"], //REFACTOR: move validation away from here
+		required: true, 
 	},
-
-	registrationDate: {
-		type: Number,
-	},
-
 	gender: {
 		type: String,
 		default: "female",
