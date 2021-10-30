@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-//added the loglevel library
 const logger = require("loglevel");
 
-//resole and reject
 module.exports.dbConnect = async () => {
 	try {
 		const connectionParams = {
@@ -14,7 +12,25 @@ module.exports.dbConnect = async () => {
 	} catch (error) {
 		logger.warn("an error occurred while connecting to the database")
 		logger.error(error.message)
-		// TODO: ADD A LOGGER TO LOG THE CONNECTION ERROR
 		console.error(error.message);
 	}
 };
+
+
+
+// const mongodb = require('mongodb');
+// const connectMongodb = require('../db');
+// let DATABASE_CONNECTION = null;
+// function setDb() {
+//   return (
+//     // If we have a database connection
+//     // Return it
+//     // Else
+//     // Regenerate it
+//     DATABASE_CONNECTION ||
+//     connectMongodb().then((client) => {
+//       DATABASE_CONNECTION = client.db('econnect');
+//     })
+//   );
+// }
+

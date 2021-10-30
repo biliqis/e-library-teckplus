@@ -1,5 +1,5 @@
-const User = require("../models/userModel");
-const bcrypt = require('bcryptjs');
+const User = require("../modules/user/userModel");
+const bcrypt = require('bcryptjs')
 let emailRegexVal = /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/;
 
 module.exports.signUpValidator = async (req, res, next) => {

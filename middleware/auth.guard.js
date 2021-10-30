@@ -1,17 +1,15 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
+const User = require("../modules/user/userModel");
 
 const requireAuth = async (req, res, next) => {
 	try {
 		const auth = req.headers["authorization"];
 		if (auth) {
-			token = auth.split("Bearer")[1].trim();
+			let token = auth.split("Bearer")[1].trim();
 			const decoded = jwt.verify(token, process.env.JWT_SECRET);
 			console.log(decoded, "just finish splitting the token ---------");
 			console.log(decoded);
-			const currentUser = await User.findOne({ _id: decoded.id }).select(
-				"+password"
-			);
+			const currentUser = await User.findById(req.params.id)
 			if (!currentUser) {
 				return res.status(401).json({ message: "logged out" });
 			}
@@ -43,3 +41,5 @@ const checkUser = async (req, res, next) => {
 	}
 };
 module.exports = { requireAuth, checkUser };
+
+
