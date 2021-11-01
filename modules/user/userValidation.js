@@ -12,6 +12,8 @@ class userValidation {
                 .withMessage('Email is required')
                 .isEmail()
                 .withMessage('Must be a valid email address'),
+
+                
             body('password')
                 .isLength({ min: 5 })
             .withMessage('Password is required')

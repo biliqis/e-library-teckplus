@@ -18,16 +18,17 @@ const {
 
 const userValidation = require("./userValidation");
 const { useGuard } = require("../../middleware/guard");
-const { userSignUpGuard } = require("./userGuard");
+const { userSignUpGuard, userEmailExists, userloginGuard } = require("./userGuard");
 
 router.post(
 	"/user/sign-up",
 	userValidation.SignUp(),
 	// useValidator(userValidation.SignUp()),
 	useGuard(userSignUpGuard),
-	UserController.userSignUp
+	// useGuard(userEmailExists),
+	userSignUp
 );
-router.post("/user/login", userValidation.login(), userLogin);
+router.post("/user/login", userValidation.login(), useGuard(userloginGuard), userLogin);
 router.get("/user/test", userValidation.login(), test);
 router.post("/admin/sign-up", signUpValidator, adminSignUp);
 router.post("/admin/login", AdminloginValidator, adminLogin);

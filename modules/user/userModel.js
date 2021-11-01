@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
 	},
 
 	roles: {
-		//REFACTOR: change to role
+	
 		type: String,
 		enum: ["ADMIN", "USER"],
 	},
