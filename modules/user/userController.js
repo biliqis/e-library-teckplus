@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const jwtSecretKey = process.env.JWT_SECRET;
-const { generateJwt,comparePassword } = require('./userService')
+const { generateJwt, comparePassword } = require('./userService')
 const bodyValidate = (req, res) => {
 
 	const result = validationResult(req);
