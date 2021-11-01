@@ -3,11 +3,11 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const jwtSecretKey = process.env.JWT_SECRET;
-const { generateJwt, comparePassword } = require('./userService')
+const { generateJwt, comparePassword, UserService } = require("./userService");
+
+const UserController = {};
 const bodyValidate = (req, res) => {
-
 	const result = validationResult(req);
-
 
 	const hasErrors = !result.isEmpty();
 
@@ -15,38 +15,20 @@ const bodyValidate = (req, res) => {
 		return res.status(422).json({
 			error: true,
 			statusCode: 422,
-			message: 'Invalid body request',
-			errors: result.array({ onlyFirstError: true })
-		})
+			message: "Invalid body request",
+			errors: result.array({ onlyFirstError: true }),
+		});
 	}
-}
+};
 
 //USER SignUp LOGIC
-const userSignUp = async (req, res) => {
+UserController.userSignUp = async (req, res) => {
 	bodyValidate(req, res);
 	try {
-		const checkEmail = await User.findOne({
-			$or: [
-				{
-					email: req.body.email
-				},
-				{
-					phonenumber: req.body.phonenumber
-				}
-			]
-		});
-
-		if (checkEmail) {
-			return res.status(400).json({
-				status: 'failed',
-				message: 'Email or Phone number already exist'
-			})
-		}
-
 		//if(checkEmail.phonenumber  )
 		const { firstName } = req.body;
-		const user = await User.create({ ...req.body, roles: "USER" });
-		const token = generateJwt({ user_id: user._id, firstName })
+		const user = await UserService.create({ ...req.body, roles: "USER" });
+		const token = generateJwt({ user_id: user._id, firstName });
 		// const token = jwt.sign({ user_id: user._id, firstName }, jwtSecretKey, {
 		// 	expiresIn: process.env.JWT_EXP,
 		// });
@@ -58,11 +40,9 @@ const userSignUp = async (req, res) => {
 	}
 };
 
-
-
 //USERLOGIN LOGIC
 const userLogin = async (req, res) => {
-	bodyValidate(req, res)
+	bodyValidate(req, res);
 	try {
 		const { email, password } = req.body;
 		const user = await User.findOne({
@@ -71,19 +51,19 @@ const userLogin = async (req, res) => {
 
 		if (!user) {
 			return res.status(400).json({
-				status: 'failed',
-				message: 'Invaild email or password'
-			})
+				status: "failed",
+				message: "Invaild email or password",
+			});
 		}
-		let verify = await comparePassword(password, user.password)
+		let verify = await comparePassword(password, user.password);
 		if (!verify) {
 			return res.status(400).json({
-				status: 'failed',
-				message: 'Invaild email or password'
-			})
+				status: "failed",
+				message: "Invaild email or password",
+			});
 		}
 		console.log(user);
-		const token = generateJwt({ user_id: user._id, firstName: user.firstName })
+		const token = generateJwt({ user_id: user._id, firstName: user.firstName });
 		return res.status(200).json({
 			user,
 			token,
@@ -98,13 +78,12 @@ const userLogin = async (req, res) => {
 // ADMIN REGISTER LOGIC
 const adminSignUp = async (req, res) => {
 	try {
-		let { roles } = req.body
+		let { roles } = req.body;
 		const admin = await User.create({ ...req.body, roles: "ADMIN" });
 		// let roles = admin.roles
 		const token = jwt.sign({ admin_id: admin._id, roles }, jwtSecretKey, {
 			expiresIn: process.env.JWT_EXP,
 		});
-
 
 		const result = { message: "admin created successfully!", admin, token };
 		return res.status(201).json(result);
@@ -166,20 +145,15 @@ const updateUser = async (req, res) => {
 		// 				if(validateData.error)
 		// 				return res.status(400).json({error:{message:error.message}})
 
-
 		console.log(id);
 		const updatedUser = await User.findByIdAndUpdate(id, req.body, {
 			new: true,
 		});
 
-
 		// console.log(id);
 		// const updatedUser = await User.findByIdAndUpdate(id, validateData.value, {
 		// 	new: true,
 		// });
-
-
-
 
 		return res.status(200).json({
 			message: "user updated successfully",
@@ -208,18 +182,19 @@ const deleteUser = async (req, res) => {
 
 const test = async (req, res) => {
 	//console.log('working')
-	bodyValidate(req, res)
+	bodyValidate(req, res);
 	return res.status(200).json({
-		message: 'working'
-	})
-}
+		message: "working",
+	});
+};
 
 module.exports = {
 	adminLogin,
 	userLogin,
-	userSignUp,
 	updateUser,
 	adminSignUp,
 	deleteUser,
 	test,
 };
+
+module.exports.UserController = UserController;
