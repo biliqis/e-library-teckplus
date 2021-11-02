@@ -3,7 +3,7 @@ const { body, params, query } = require('express-validator');
 const { deleteUser } = require('./userController');
 
 class userValidation {
-//LOGIN VALIDATION
+    //LOGIN VALIDATION
     static login() {
         return [
             body('email')
@@ -13,13 +13,13 @@ class userValidation {
                 .isEmail()
                 .withMessage('Must be a valid email address'),
 
-                
+
             body('password')
                 .isLength({ min: 5 })
-            .withMessage('Password is required')
+                .withMessage('Password is required')
                 .isString()
                 .notEmpty(),
-                
+
         ]
     }
 
@@ -47,9 +47,6 @@ class userValidation {
                 .isLength({ min: 5 })
                 .withMessage('must be at least 5 chars long')
                 .notEmpty(),
-            
-                
-
 
             body('email')
                 .isString()
@@ -104,16 +101,12 @@ class userValidation {
     static deleteUser() {
         return [
             query('user_id')
-            
+
         ]
     }
 
 
 }
-
-
-
-
 
 module.exports = userValidation;
 

@@ -1,4 +1,7 @@
+const { validationResult } = require("express-validator");
+const userModel = require("./userModel");
 const { UserService } = require("./userService");
+
 
 module.exports.userSignUpGuard = async (req) => {
 	// database checks
@@ -15,49 +18,63 @@ module.exports.userSignUpGuard = async (req) => {
 	if (result) {
 		throw new Error("Email or Phone number already exist");
 	}
+	console.log(result)
+
 };
 
-const bodyValidate = (req, res) => {
+module.exports.bodyValidate = (req, res) => {
 	const result = validationResult(req);
 
 	const hasErrors = !result.isEmpty();
 
 	if (hasErrors) {
-		return res.status(422).json({
+		throw new Error({
 			error: true,
 			statusCode: 422,
 			message: "Invalid body request",
 			errors: result.array({ onlyFirstError: true }),
-		});
+		})
 	}
 };
 
 
 
-// module.exports.userEmailExists = async (req) => {
-// 	try {
-// 		const result = await UserService.findOne({
-// 			email: req.body.email
-// 		})
-// 		if (result){
-// 			throw new Error("Email already exist!");
-// 		}
-// 	} catch (err){
-// 		console.error(err)
-// 		throw new Error(err.message)
-// 	}
-	
-// }
+module.exports.userEmailExists = async (req) => {
+	try {
+		console.log(req.body.email)
+		const result = await UserService.findSingle(
+			req.body.email
+		)
+		if (result) {
+			throw new Error("Email already exist!");
+		}
+	} catch (err) {
+		console.error(err)
+		throw new Error(err.message)
+	}
 
-module.exports.userloginGuard = async(req) =>{
+}
+
+
+module.exports.userIdExists = async (req) => {
+	console.log(req.params.id)
+	const result = await userModel.findById(req.params.id)
+	if (!result) {
+		throw new Error("User with id not found!");
+	}
+}
+
+
+
+module.exports.userloginGuard = async (req) => {
 	const { email, password } = req.body;
 	const user = await UserService.findSingle(email);
 	if (!user) {
-		return "user does not exist!"
+		throw new Error("user does not exist!");
 	}
-	let verify = await comparePassword(password, user.password);
+	let verify = await UserService.comparePassword(password, user.password);
 	if (!verify) {
-		return "Invaild email or password";
+		throw new Error("Invaild email or password");
 	}
 	req.user = user;
 }
@@ -67,25 +84,25 @@ module.exports.userloginGuard = async(req) =>{
 
 
 
-module.exports.updateUser = async(req)=>{
+module.exports.updateUser = async (req) => {
 	const { id } = req.params;
 	try {
 		const checkUser = await UserService.findSingleById(id)
-		if(!checkUser){
+		if (!checkUser) {
 			throw new Error("User with id not found");
 		}
-	 } catch (e) {
+	} catch (e) {
 		throw new Error(e.message);
 	}
-	
+
 }
 
-module.exports.deleteUsers = async(req)=>{
+module.exports.deleteUsers = async (req) => {
 	const id = req.params.id;
-		const checkUser = await UserService.findSingleById(id)
-		if(!checkUser){
-			throw new Error("User with id not found");
-		}
+	const checkUser = await UserService.findSingleById(id)
+	if (!checkUser) {
+		throw new Error("User with id not found");
+	}
 };
 
 

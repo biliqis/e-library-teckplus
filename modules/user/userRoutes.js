@@ -18,20 +18,20 @@ const {
 
 const userValidation = require("./userValidation");
 const { useGuard } = require("../../middleware/guard");
-const { userSignUpGuard, userEmailExists, userloginGuard } = require("./userGuard");
+const { userSignUpGuard, userEmailExists, userloginGuard, bodyValidate, userIdExists } = require("./userGuard");
 
 router.post(
 	"/user/sign-up",
 	userValidation.SignUp(),
-	// useValidator(userValidation.SignUp()),
-	useGuard(userSignUpGuard),
-	// useGuard(userEmailExists),
+	useGuard(bodyValidate),
+	useGuard(userEmailExists),
 	userSignUp
 );
 router.post("/user/login", userValidation.login(), useGuard(userloginGuard), userLogin);
-router.get("/user/test", userValidation.login(), test);
+//router.get("/user/test", userValidation.login(), test);
 router.post("/admin/sign-up", signUpValidator, adminSignUp);
 router.post("/admin/login", AdminloginValidator, adminLogin);
-router.patch("/update-user/:id", requireAuth, updateUser);
-router.delete("/delete-user/:id", requireAuth, deleteUser);
+router.put("/update-user/:id", requireAuth, useGuard(userIdExists), updateUser);
+router.delete("/delete-user/:id", requireAuth, useGuard(userIdExists),
+	deleteUser);
 module.exports = router;
