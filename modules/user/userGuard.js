@@ -55,7 +55,6 @@ module.exports.userEmailExists = async (req) => {
 
 }
 
-
 module.exports.userIdExists = async (req) => {
 	console.log(req.params.id)
 	const result = await userModel.findById(req.params.id)
@@ -63,8 +62,6 @@ module.exports.userIdExists = async (req) => {
 		throw new Error("User with id not found!");
 	}
 }
-
-
 
 module.exports.userloginGuard = async (req) => {
 	const { email, password } = req.body;
@@ -79,11 +76,6 @@ module.exports.userloginGuard = async (req) => {
 	req.user = user;
 }
 
-
-
-
-
-
 module.exports.updateUser = async (req) => {
 	const { id } = req.params;
 	try {
@@ -94,9 +86,7 @@ module.exports.updateUser = async (req) => {
 	} catch (e) {
 		throw new Error(e.message);
 	}
-
 }
-
 module.exports.deleteUsers = async (req) => {
 	const id = req.params.id;
 	const checkUser = await UserService.findSingleById(id)

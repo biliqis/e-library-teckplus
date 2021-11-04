@@ -29,8 +29,8 @@ router.post(
 );
 router.post("/user/login", userValidation.login(), useGuard(userloginGuard), userLogin);
 //router.get("/user/test", userValidation.login(), test);
-router.post("/admin/sign-up", signUpValidator, adminSignUp);
-router.post("/admin/login", AdminloginValidator, adminLogin);
+//router.post("/admin/sign-up", signUpValidator, adminSignUp);
+//router.post("/admin/login", AdminloginValidator, adminLogin);
 router.put("/update-user/:id", requireAuth, useGuard(userIdExists), updateUser);
 router.delete("/delete-user/:id", requireAuth, useGuard(userIdExists),
 	deleteUser);
