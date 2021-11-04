@@ -8,7 +8,7 @@
 const router = require("express").Router()
 const { useGuard } = require("../../middleware/guard");
 const { requireAuth } = require("../../middleware/auth.guard");
-const { createBook, getAllBooks, deleteSingleBook, getSingleBook, updateBook } = require("./bookController")
+const { createBook, getAllBooks, deleteSingleBook, getSingleBook, updateBook } = require("./bookContoller")
 const { createBookGuard, deleteBookGuard, updateBookGuard, checkIfUserIsAdmin } = require("./bookGguard");
 
 router.post("/create", auth, checkIfUserIsAdmin, useGuard(createBookGuard), createBook);
