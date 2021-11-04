@@ -1,8 +1,7 @@
 
 const { bookTitleExists, bookIdExists, createBookService, getAllBookService, deleteBookService, updateBookService } = require("./bookService");
 const { createBookValidator, editUserValidator } = require("./bookValidator");
-//const AppError = require("../Error/appError");
-//const  ObjectID = require('mongodb').ObjectId;
+
 
 module.exports.createBook = async(req, res, next) => {
 	

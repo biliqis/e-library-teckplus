@@ -1,5 +1,4 @@
 const { bookTitleExists, bookIdExists } = require("./bookService")
-//const AppError = require("../Error/appError");
 
 module.exports.createBookGuard = async (req, res) => {
     const exists = await bookTitleExists(req.body.bookTitle );
