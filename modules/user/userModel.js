@@ -31,10 +31,11 @@ const userSchema = new mongoose.Schema({
 		type: String,
 	},
 
-	roles: {
+	role: {
 
 		type: String,
-		enum: ["ADMIN", "USER"],
+
+		enum: ["admin", "user"]
 	},
 	age: {
 		type: String,

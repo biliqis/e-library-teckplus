@@ -27,6 +27,7 @@ router.post(
 	useGuard(userEmailExists),
 	userSignUp
 );
+
 router.post("/user/login", userValidation.login(), useGuard(userloginGuard), userLogin);
 //router.get("/user/test", userValidation.login(), test);
 //router.post("/admin/sign-up", signUpValidator, adminSignUp);

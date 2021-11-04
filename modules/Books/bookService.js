@@ -1,7 +1,7 @@
-const bookModel = require("./book.model")
+const bookModel = require("./bookModel")
 const ObjectId = require('mongodb').ObjectId
 
-
+//const bookService = {};
 
 module.exports.bookTitleExists = (bookTitle) => {
 	return bookModel.countDocuments({ bookTitle }).then((count) => count > 0)
@@ -13,7 +13,9 @@ module.exports.bookIdExists = async (bookId) => {
 }
 
 module.exports.createBookService = async (book) => {
+    //console.log('hello')
     const model = new bookModel({ ...book })
+    //console.log(model)
 	return model.save();
 }
 

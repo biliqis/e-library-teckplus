@@ -1,8 +1,9 @@
-const { bookTitleExists, bookIdExists } = require("./book.service")
-const AppError = require("../Error/appError");
+const { bookTitleExists, bookIdExists } = require("./bookService")
+//const AppError = require("../Error/appError");
 
 module.exports.createBookGuard = async (req, res) => {
-    const exists = await bookTitleExists(req.body.bookTitle);
+    const exists = await bookTitleExists(req.body.bookTitle );
+   // console.log(exists)
     if (exists) return res.status(401).json({ message: `Book already exists, you may wish to add to the number of ${req.body.bookTitle} copies that exist`});
 }
 
