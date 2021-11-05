@@ -13,10 +13,10 @@ module.exports.bookIdExists = async (bookId) => {
 }
 
 module.exports.createBookService = async (book) => {
-    //console.log('hello')
+    //console.log('book')
     const model = new bookModel({ ...book })
-    //console.log(model)
-	return model.save();
+    console.log(model)
+	// return model.save();
 }
 
 module.exports.updateBookService = async (bookId, book) => {

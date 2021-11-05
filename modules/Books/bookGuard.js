@@ -18,5 +18,7 @@ module.exports.deleteBookGuard = async (req, res) => {
 }
 
 module.exports.checkIfUserIsAdmin = (req, res) => {
-	if(req.user.role === "user") return res.status(400).json({ message: "Sorry you are not allowed to perform this operation"})
+    console.log(req.user.role)
+	if(req.user.roles === "user") return res.status(400).json({ message: "Sorry you are not allowed to perform this operation"})
+    
 }

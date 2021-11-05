@@ -29,6 +29,11 @@ const BookSchema = new Schema(
         phoneNumber: {
             type: String,
         },
+        roles: {
+            type: String,
+            // enum: ["admin", "user"]
+        },
+
         address: {
             type: String,
         },

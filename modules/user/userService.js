@@ -47,8 +47,9 @@ UserService.deleteUser = async (req, res) => {
 
 UserService.userSignUp = async (req, res) => {
 	const { firstName } = req.body;
-	console.log(req.body)
+	// console.log(req.body)
 	const user = await UserModel.create({ ...req.body });
+	console.log(user)
 	const token = UserService.generateJwt({ user_id: user._id, firstName });
 	return { user, token };
 
@@ -63,16 +64,16 @@ UserService.userLogin = async (req, res) => {
 }
 
 
-UserService.adminRegister = async (req, res) => {
-	let { role } = req.body;
-	const admin = await User.create({ ...req.body });
-	// let roles = admin.roles
-	const token = jwt.sign({ admin_id: admin._id, roles }, jwtSecretKey, {
-		expiresIn: process.env.JWT_EXP,
-	});
-	return { token, admin }
+// UserService.adminRegister = async (req, res) => {
+// 	let { role } = req.body;
+// 	const admin = await User.create({ ...req.body });
+// 	// let roles = admin.roles
+// 	const token = jwt.sign({ admin_id: admin._id, roles }, jwtSecretKey, {
+// 		expiresIn: process.env.JWT_EXP,
+// 	});
+// 	return { token, admin }
 
-}
+// }
 
 
 module.exports.UserService = UserService;

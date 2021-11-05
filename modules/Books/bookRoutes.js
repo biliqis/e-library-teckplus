@@ -5,7 +5,7 @@ const { requireAuth } = require("../../middleware/auth.guard");
 const { createBook, getAllBooks, deleteSingleBook, getSingleBook, updateBook } = require("./bookContoller")
 const { createBookGuard, deleteBookGuard, updateBookGuard, checkIfUserIsAdmin } = require("./bookGuard");
 
-router.post("/create", useGuard(createBookGuard), createBook);
+router.post("/create", requireAuth,checkIfUserIsAdmin, useGuard(createBookGuard), createBook);
 router.patch("/update/:id", useGuard(updateBookGuard), updateBook);
 
 router.get("/get-books", getAllBooks);

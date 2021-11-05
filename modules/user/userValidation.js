@@ -47,8 +47,16 @@ class userValidation {
                 .isLength({ min: 5 })
                 .withMessage('must be at least 5 chars long')
                 .notEmpty(),
+                
 
             body('email')
+                .isString()
+                .notEmpty()
+                .withMessage('required'),
+                
+
+                body('roles')
+                .isIn(["admin", "user"])
                 .isString()
                 .notEmpty()
                 .withMessage('required'),
