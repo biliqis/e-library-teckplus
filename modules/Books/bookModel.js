@@ -13,13 +13,12 @@ const BookSchema = new Schema(
             type: String
         },
 
-
-        "ISBN": {
+        "ISBN": {//TODO: Please justify why you do this.
             type: String,
         },
         countryId: {
             type: String
-        },
+        },//TODO: Why did you use the country as an Id?? are you creating the country some where and you are passing the Id of the model here or what?
         noOfCopies: {
             type: Number,
         },
