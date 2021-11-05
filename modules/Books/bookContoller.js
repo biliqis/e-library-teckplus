@@ -4,14 +4,11 @@ const { createBookValidator, editUserValidator } = require("./bookValidator");
 
 
 module.exports.createBook = async(req, res, next) => {
-	
     const data = await createBookValidator.validateAsync(req.body);
     const bookData = await createBookService(data);
     return res.json({ bookData })
 
 }
-
-
 
 module.exports.updateBook = async(req, res, next) => {
     const bookId = req.params.id
