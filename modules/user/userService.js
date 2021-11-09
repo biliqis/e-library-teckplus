@@ -50,7 +50,7 @@ UserService.userSignUp = async (req, res) => {
 	// console.log(req.body)
 	const user = await UserModel.create({ ...req.body });
 	console.log(user)
-	const token = UserService.generateJwt({ user_id: user._id, firstName });
+	const token = UserService.generateJwt({ user_id: user._id,roles:req.body.roles });
 	return { user, token };
 
 };
@@ -58,11 +58,10 @@ UserService.userSignUp = async (req, res) => {
 
 UserService.userLogin = async (req, res) => {
 	const user = await UserModel.findOne({ email: req.body.email, })
-	const token = UserService.generateJwt({ user_id: user._id, firstName: req.user.firstName });
+	const token = UserService.generateJwt({ user_id: user._id,roles:req.body.roles });
 
 	return { user, token }
 }
-
 
 // UserService.adminRegister = async (req, res) => {
 // 	let { role } = req.body;

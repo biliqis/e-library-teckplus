@@ -9,14 +9,17 @@ const BookSchema = new Schema(
         authorName: {
             type: String,
         },
+        pricePerBook:{
+            type:Number
+        },
         sex: {
             type: String
         },
 
-        "ISBN": {//TODO: Please justify why you do this.
+        isbnNumber: {//TODO: Please justify why you do this.
             type: String,
         },
-        countryId: {
+        country: {
             type: String
         },//TODO: Why did you use the country as an Id?? are you creating the country some where and you are passing the Id of the model here or what?
         noOfCopies: {
@@ -25,9 +28,7 @@ const BookSchema = new Schema(
         publishDate: {
             type: String,
         },
-        phoneNumber: {
-            type: String,
-        },
+    
         roles: {
             type: String,
             // enum: ["admin", "user"]
@@ -42,4 +43,6 @@ const BookSchema = new Schema(
     }
 );
 
+//enable search indexing
+BookSchema.index({ '$**': 'text' })
 module.exports = mongoose.model("book", BookSchema);

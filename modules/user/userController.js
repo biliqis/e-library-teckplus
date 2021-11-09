@@ -90,7 +90,6 @@ module.exports = {
 	adminSignUp,
 	deleteUser,
 	userSignUp,
-	//test,
 };
 
 // module.exports.UserController = UserController;
