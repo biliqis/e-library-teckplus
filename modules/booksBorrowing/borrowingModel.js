@@ -14,7 +14,10 @@ const borrowedBookSchema = new mongoose.Schema({
 
     numberOfBooksToBeBorrowed: {
         type: Number,
-        max :3
+    },
+    
+    numberOfDays: {
+        type: Number
     },
 
     borrowDate: {

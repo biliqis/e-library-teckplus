@@ -50,7 +50,7 @@ UserService.userSignUp = async (req, res) => {
 	// console.log(req.body)
 	const user = await UserModel.create({ ...req.body });
 	console.log(user)
-	const token = UserService.generateJwt({ user_id: user._id,roles:req.body.roles });
+	const token = UserService.generateJwt({ user_id: user._id, roles: req.body.roles });
 	return { user, token };
 
 };
@@ -58,21 +58,12 @@ UserService.userSignUp = async (req, res) => {
 
 UserService.userLogin = async (req, res) => {
 	const user = await UserModel.findOne({ email: req.body.email, })
-	const token = UserService.generateJwt({ user_id: user._id,roles:req.body.roles });
+	const token = UserService.generateJwt({ user_id: user._id, roles: req.body.roles });
 
 	return { user, token }
 }
 
-// UserService.adminRegister = async (req, res) => {
-// 	let { role } = req.body;
-// 	const admin = await User.create({ ...req.body });
-// 	// let roles = admin.roles
-// 	const token = jwt.sign({ admin_id: admin._id, roles }, jwtSecretKey, {
-// 		expiresIn: process.env.JWT_EXP,
-// 	});
-// 	return { token, admin }
 
-// }
 
 
 module.exports.UserService = UserService;

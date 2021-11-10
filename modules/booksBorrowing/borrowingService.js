@@ -1,4 +1,5 @@
 const bookModel = require("../Books/bookModel");
+const User = require ("../user/userModel")
 const bookBorrowing = require ("./borrowingModel");
 
 
@@ -11,6 +12,29 @@ module.exports.findBookByTitle = async (req, res) => {
     } catch (error) {
         console.error(error)
         return res.status(500).send({message:error.message})
+    }
+}
+module.exports.userBorrowBook = async (req,res) => {
+    try {
+        const singleUser = await User.findById(req.user.user_id)
+        const bookDto = {
+            bookTitles:req.body.bookTitles,
+            user:singleUser._id,
+            numberOfDays:req.body.numberOfDays,
+            borrowDate:new Date(),
+            returnDate:new Date().setDate(new Date().getDate() + numberOfDays),
+
+
+        }
+        await startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
+        let newBorrow = new bookBorrowing(bookDto)
+        await newBorrow.save()
+        return res.status(201).send({success:true,message:"created successfully"})
+
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send({message:err.message})
+        
     }
 }
 
