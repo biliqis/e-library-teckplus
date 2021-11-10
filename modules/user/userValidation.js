@@ -12,8 +12,6 @@ class userValidation {
                 .withMessage('Email is required')
                 .isEmail()
                 .withMessage('Must be a valid email address'),
-
-                
             body('password')
                 .isLength({ min: 5 })
             .withMessage('Password is required')
@@ -30,27 +28,19 @@ class userValidation {
                 .isString()
                 .notEmpty()
                 .withMessage('required'),
-
             body('lastName')
                 .isString()
                 .notEmpty()
                 .withMessage('required'),
-
             body('phonenumber')
                 .isString()
                 .notEmpty()
                 .withMessage('required'),
-
-
             body('password')
                 .isString()
                 .isLength({ min: 5 })
                 .withMessage('must be at least 5 chars long')
                 .notEmpty(),
-            
-                
-
-
             body('email')
                 .isString()
                 .notEmpty()

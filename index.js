@@ -30,6 +30,10 @@ async function bootstrap() {
 	}
 }
 bootstrap();
+/***
+	TODO: Implement global error handler. make reference to paul's code 
+	Implement customer Error class. make reference to paul's code 
+ */
 //TODO: refactoring
 /**
  * 1. use layered architecture

@@ -8,6 +8,8 @@ const { generateJwt, comparePassword, UserService } = require("./userService");
 const UserController = {};
 
 
+// TODO: TIE ALL FUNCTIONS BELOW TO THE USER CONTROLLER 
+
 //USER SignUp LOGIC
 const userSignUp = async (req, res) => {
 	return UserService.userSignUp

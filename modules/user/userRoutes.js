@@ -22,6 +22,8 @@ const { userSignUpGuard, userEmailExists, userloginGuard } = require("./userGuar
 
 router.post(
 	"/user/sign-up",
+
+	// TODO: write a custom middleware called useValidator that should take the validator schema and return only the first error 
 	userValidation.SignUp(),
 	// useValidator(userValidation.SignUp()),
 	useGuard(userSignUpGuard),
