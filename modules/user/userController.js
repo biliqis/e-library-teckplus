@@ -1,54 +1,46 @@
 const User = require("./userModel");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const { validationResult } = require("express-validator");
 const jwtSecretKey = process.env.JWT_SECRET;
-const { generateJwt, comparePassword, UserService } = require("./userService");
-
-const UserController = {};
-
+const { UserService } = require("./userService");
 
 // TODO: TIE ALL FUNCTIONS BELOW TO THE USER CONTROLLER 
 
 //USER SignUp LOGIC
 const userSignUp = async (req, res) => {
-	return UserService.userSignUp
+	try {
+		const { user, token } = await UserService.userSignUp(req, res);
+		const result = { message: "user created successfully!", user, token };
+		return res.status(201).json(result);
+	} catch (err) {
+		console.error(err);
+		return res.status(500).send(err.message);
+	}
 }
-
 //USERLOGIN LOGIC
 const userLogin = async (req, res) => {
-	return UserService.userLogin
+	try {
+		// const { email, password } = req.body
+		 const {user,token} = await UserService.userLogin(req, res);
+		const result = { message: "login sucessful!", user, token };
+		return res.status(201).json(result);
+	} catch (err) {
+		console.error(err)
+		return res.status(500).json(err.message)
+	}
 };
-
 // ADMIN REGISTER LOGIC
 const adminSignUp = async (req, res) => {
 	return UserService.adminRegister
 };
-
 //ADMINLOGIN LOGIC
 const adminLogin = async (req, res) => {
 	try {
-		const { email, password } = req.body;
-		const admin = await User.findOne({
-			email,
-		});
-		const loginUser = jwt.sign(
-			{
-				user: {
-					admin_id: admin._id,
-					roles: admin.roles,
-				},
-			},
-			jwtSecretKey,
-			{
-				expiresIn: process.env.JWT_EXP,
-			}
-		);
+		const { admin, token } = await UserService.userLogin(req, res);
 
-		res.setHeader("Authorization", `Bearer ${loginUser}`);
+		res.setHeader("Authorization", `Bearer ${token}`);
 		return res.status(200).json({
 			data: {
-				token: loginUser,
+				token: token,
 				first_name: admin.firstName,
 				last_name: admin.lastName,
 			},
@@ -56,28 +48,43 @@ const adminLogin = async (req, res) => {
 		});
 	} catch (err) {
 		console.error(err);
-		return res.status(500).json({ message: err.message });
+		return res.status(403).json({ message: err.message });
 	}
 };
-
 //UPDATE USER LOGIC
 const updateUser = async (req, res) => {
-	return UserService.updateUser
+	try {
+		const updatedUser = await UserService.updateUser(req, res)
+		return res.status(200).json({
+			message: "user updated successfully",
+			data: updatedUser,
+		});
+	} catch (error) {
+		console.error(error);
+		return res.status(500).send(error.message);
+	}
 };
 
 //delete user
 const deleteUser = async (req, res) => {
-	return UserService.deleteUser
+	try {
+		const deletedUser = UserService.deleteUser(req, res)
+		return res.status(200).json({
+			message: "user deleted successfully", data: deleteUser,
+		});
+	} catch (error) {
+		console.error(error);
+		return res.status(403).send(error.message);
+	}
 }
 
-const test = async (req, res) => {
-	//console.log('working')
-	bodyValidate(req, res);
-	return res.status(200).json({
-		message: "working",
-	});
-};
-
+// const test = async (req, res) => {
+// 	//console.log('working')
+// 	bodyValidate(req, res);
+// 	return res.status(200).json({
+// 		message: "working",
+// 	});
+// };
 module.exports = {
 	adminLogin,
 	userLogin,
@@ -85,7 +92,6 @@ module.exports = {
 	adminSignUp,
 	deleteUser,
 	userSignUp,
-	test,
 };
 
 // module.exports.UserController = UserController;

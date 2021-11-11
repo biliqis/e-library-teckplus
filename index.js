@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { dbConnect } = require("./db");
+
 const express = require("express");
 const routes = require("./routes");
 const logger = require("loglevel")
@@ -9,27 +10,24 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"))
 app.use(routes);
-
-// app.use("/user", require("./routes/userRoutes"));
 const port = process.env.PORT || 8080;
 async function bootstrap() {
 	try {
-		// connect to db
 		await dbConnect();
-		// connection to xyz
 
 		app.listen(port, () => {
 			console.log(`now listening for requests on port ${port}...`);
 		});
-		// listen on app
+
 	} catch (e) {
 		logger.warn("an error occurred while starting the server")
 		logger.error(e.message)
-		// TODO: LOG ERRORS IF THEY OCCUR
 		process.exit(1);
 	}
+
 }
 bootstrap();
+<<<<<<< HEAD
 /***
 	TODO: Implement global error handler. make reference to paul's code 
 	Implement customer Error class. make reference to paul's code 
@@ -53,3 +51,7 @@ bootstrap();
  * 4. create a bootstrap entry : COMPELTED
  *
  */
+=======
+
+
+>>>>>>> 99f9f7645d011735f7501f8bfa85cf7da588601d
