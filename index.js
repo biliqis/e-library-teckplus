@@ -27,5 +27,31 @@ async function bootstrap() {
 
 }
 bootstrap();
+<<<<<<< HEAD
+/***
+	TODO: Implement global error handler. make reference to paul's code 
+	Implement customer Error class. make reference to paul's code 
+ */
+//TODO: refactoring
+/**
+ * 1. use layered architecture
+ * 	 - service layer
+ *   - models layer
+ *   - controller layer
+ *   - parameters validation layer
+ *   - database validation layer
+ *
+ *
+ * 2. a very simple approach to dependency injection
+ *
+ * 3. versioning your apis : COMPELTED
+ *    - host/v1/endpoint
+ *    - host/v2/endpoint2
+ *
+ * 4. create a bootstrap entry : COMPELTED
+ *
+ */
+=======
 
 
+>>>>>>> 99f9f7645d011735f7501f8bfa85cf7da588601d

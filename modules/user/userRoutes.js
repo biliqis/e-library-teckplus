@@ -22,6 +22,8 @@ const { userSignUpGuard, userEmailExists, userloginGuard, bodyValidate, userIdEx
 
 router.post(
 	"/user/sign-up",
+
+	// TODO: write a custom middleware called useValidator that should take the validator schema and return only the first error 
 	userValidation.SignUp(),
 	useGuard(bodyValidate),
 	useGuard(userEmailExists),

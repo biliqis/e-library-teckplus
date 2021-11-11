@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const jwtSecretKey = process.env.JWT_SECRET;
 const { UserService } = require("./userService");
 
+// TODO: TIE ALL FUNCTIONS BELOW TO THE USER CONTROLLER 
+
 //USER SignUp LOGIC
 const userSignUp = async (req, res) => {
 	try {

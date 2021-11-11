@@ -93,8 +93,3 @@ module.exports.deleteUsers = async (req) => {
 		throw new Error("User with id not found");
 	}
 };
-
-
-
-
-

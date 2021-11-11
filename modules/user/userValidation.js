@@ -30,18 +30,14 @@ class userValidation {
                 .isString()
                 .notEmpty()
                 .withMessage('required'),
-
             body('lastName')
                 .isString()
                 .notEmpty()
                 .withMessage('required'),
-
             body('phonenumber')
                 .isString()
                 .notEmpty()
                 .withMessage('required'),
-
-
             body('password')
                 .isString()
                 .isLength({ min: 5 })
