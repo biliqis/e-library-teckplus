@@ -62,7 +62,6 @@ module.exports.userIdExists = async (req) => {
 		throw new Error("User with id not found!");
 	}
 }
-
 module.exports.userloginGuard = async (req) => {
 	const { email, password } = req.body;
 	const user = await UserService.findSingle(email);
