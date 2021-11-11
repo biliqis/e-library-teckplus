@@ -37,22 +37,6 @@ module.exports.bodyValidate = (req, res) => {
 	}
 };
 
-<<<<<<< HEAD
-// module.exports.userEmailExists = async (req) => {
-// 	try {
-// 		const result = await UserService.findOne({
-// 			email: req.body.email
-// 		})
-// 		if (result){
-// 			throw new Error("Email already exist!");
-// 		}
-// 	} catch (err){
-// 		console.error(err)
-// 		throw new Error(err.message)
-// 	}
-
-// }
-=======
 
 
 module.exports.userEmailExists = async (req) => {
@@ -78,55 +62,34 @@ module.exports.userIdExists = async (req) => {
 		throw new Error("User with id not found!");
 	}
 }
->>>>>>> 99f9f7645d011735f7501f8bfa85cf7da588601d
 
 module.exports.userloginGuard = async (req) => {
 	const { email, password } = req.body;
 	const user = await UserService.findSingle(email);
 	if (!user) {
-<<<<<<< HEAD
-		return "user does not exist!";
-=======
 		throw new Error("user does not exist!");
->>>>>>> 99f9f7645d011735f7501f8bfa85cf7da588601d
 	}
 	let verify = await UserService.comparePassword(password, user.password);
 	if (!verify) {
 		throw new Error("Invaild email or password");
 	}
 	req.user = user;
-<<<<<<< HEAD
-};
-=======
 }
->>>>>>> 99f9f7645d011735f7501f8bfa85cf7da588601d
 
 module.exports.updateUser = async (req) => {
 	const { id } = req.params;
 	try {
-<<<<<<< HEAD
-		const checkUser = await UserService.findSingleById(id);
-=======
 		const checkUser = await UserService.findSingleById(id)
->>>>>>> 99f9f7645d011735f7501f8bfa85cf7da588601d
 		if (!checkUser) {
 			throw new Error("User with id not found");
 		}
 	} catch (e) {
 		throw new Error(e.message);
 	}
-<<<<<<< HEAD
-};
-
-module.exports.deleteUsers = async (req) => {
-	const id = req.params.id;
-	const checkUser = await UserService.findSingleById(id);
-=======
 }
 module.exports.deleteUsers = async (req) => {
 	const id = req.params.id;
 	const checkUser = await UserService.findSingleById(id)
->>>>>>> 99f9f7645d011735f7501f8bfa85cf7da588601d
 	if (!checkUser) {
 		throw new Error("User with id not found");
 	}
