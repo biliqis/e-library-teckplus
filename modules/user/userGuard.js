@@ -2,8 +2,9 @@ const { validationResult } = require("express-validator");
 const userModel = require("./userModel");
 const { UserService } = require("./userService");
 
+const userGuard = {};
 
-module.exports.userSignUpGuard = async (req) => {
+userGuard.userSignUpGuard = async (req) => {
 	// database checks
 	const result = await UserService.countDocuments({
 		$or: [
@@ -22,24 +23,23 @@ module.exports.userSignUpGuard = async (req) => {
 
 };
 
-module.exports.bodyValidate = (req, res) => {
+userGuard.bodyValidate = (req, res) => {
 	const result = validationResult(req);
 
 	const hasErrors = !result.isEmpty();
 
 	if (hasErrors) {
-		throw new Error({
+		return {
 			error: true,
 			statusCode: 422,
 			message: "Invalid body request",
 			errors: result.array({ onlyFirstError: true }),
-		})
+		}
 	}
 };
 
 
-
-module.exports.userEmailExists = async (req) => {
+userGuard.userEmailExists = async (req) => {
 	try {
 		console.log(req.body.email)
 		const result = await UserService.findSingle(
@@ -55,14 +55,14 @@ module.exports.userEmailExists = async (req) => {
 
 }
 
-module.exports.userIdExists = async (req) => {
+userGuard.userIdExists = async (req) => {
 	console.log(req.params.id)
 	const result = await userModel.findById(req.params.id)
 	if (!result) {
 		throw new Error("User with id not found!");
 	}
 }
-module.exports.userloginGuard = async (req) => {
+userGuard.userloginGuard = async (req) => {
 	const { email, password } = req.body;
 	const user = await UserService.findSingle(email);
 	if (!user) {
@@ -74,8 +74,7 @@ module.exports.userloginGuard = async (req) => {
 	}
 	req.user = user;
 }
-
-module.exports.updateUser = async (req) => {
+userGuard.updateUser = async (req) => {
 	const { id } = req.params;
 	try {
 		const checkUser = await UserService.findSingleById(id)
@@ -86,10 +85,11 @@ module.exports.updateUser = async (req) => {
 		throw new Error(e.message);
 	}
 }
-module.exports.deleteUsers = async (req) => {
+userGuard.deleteUsers = async (req) => {
 	const id = req.params.id;
 	const checkUser = await UserService.findSingleById(id)
 	if (!checkUser) {
 		throw new Error("User with id not found");
 	}
 };
+module.exports =  userGuard 

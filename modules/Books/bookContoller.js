@@ -23,6 +23,7 @@ module.exports.searchAll = async (req, res) => {
 module.exports.updateBook = async (req, res, next) => {
     const bookId = req.params.id
     const data = await editUserValidator.validateAsync(req.body);
+    console.log("data",data)
     const bookData = await updateBookService(bookId, data);
     return res.json({ message: `Book with the ID ${bookId} is updated successfully`, bookData })
 

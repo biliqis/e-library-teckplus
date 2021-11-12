@@ -1,8 +1,8 @@
-const { findBookByTitle,userBorrowBook } = require("./borrowingService")
+const { findBookById,userBorrowBook } = require("./borrowingService")
 
 
-module.exports.searchBooksTitle = async (req,res) => {
-    return findBookByTitle(req,res)
+module.exports.searchBooksById = async (req,res) => {
+    return findBookById(req,res)
 }
 
 module.exports.createUserBorrowBook = async (req,res) => {

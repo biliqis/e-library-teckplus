@@ -11,7 +11,6 @@ const borrowedBookSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Users"
     },
-
     numberOfBooksToBeBorrowed: {
         type: Number,
     },
@@ -32,4 +31,5 @@ const borrowedBookSchema = new mongoose.Schema({
         default:false
     }
 })
+
 module.exports = mongoose.model("borrowedBook",borrowedBookSchema)

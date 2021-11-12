@@ -2,22 +2,28 @@ const User = require("./userModel");
 const jwt = require("jsonwebtoken");
 const jwtSecretKey = process.env.JWT_SECRET;
 const { UserService } = require("./userService");
+// const{ errorFunction,handleDuplicateError } = require("../../helper/error")
+// const {handleDuplicateError} = require('../../helper/error')
 
 // TODO: TIE ALL FUNCTIONS BELOW TO THE USER CONTROLLER 
+const UserController = {};
 
-//USER SignUp LOGIC
-const userSignUp = async (req, res) => {
+
+	UserController.userSignUp = async (req, res)=>{
 	try {
 		const { user, token } = await UserService.userSignUp(req, res);
+		console.log(user,token)
 		const result = { message: "user created successfully!", user, token };
 		return res.status(201).json(result);
 	} catch (err) {
 		console.error(err);
-		return res.status(500).send(err.message);
+		// return handleDuplicateError(res,err)
+		// return res.status(500).send(err.message);
+		return errorFunction(res,err.message,500)
 	}
 }
 //USERLOGIN LOGIC
-const userLogin = async (req, res) => {
+UserController.userLogin = async (req, res) => {
 	try {
 		// const { email, password } = req.body
 		 const {user,token} = await UserService.userLogin(req, res);
@@ -28,31 +34,8 @@ const userLogin = async (req, res) => {
 		return res.status(500).json(err.message)
 	}
 };
-// ADMIN REGISTER LOGIC
-const adminSignUp = async (req, res) => {
-	return UserService.adminRegister
-};
-//ADMINLOGIN LOGIC
-const adminLogin = async (req, res) => {
-	try {
-		const { admin, token } = await UserService.userLogin(req, res);
-
-		res.setHeader("Authorization", `Bearer ${token}`);
-		return res.status(200).json({
-			data: {
-				token: token,
-				first_name: admin.firstName,
-				last_name: admin.lastName,
-			},
-			message: "login successful!",
-		});
-	} catch (err) {
-		console.error(err);
-		return res.status(403).json({ message: err.message });
-	}
-};
 //UPDATE USER LOGIC
-const updateUser = async (req, res) => {
+UserController.updateUser = async (req, res) => {
 	try {
 		const updatedUser = await UserService.updateUser(req, res)
 		return res.status(200).json({
@@ -66,7 +49,7 @@ const updateUser = async (req, res) => {
 };
 
 //delete user
-const deleteUser = async (req, res) => {
+UserController.deleteUser = async (req, res) => {
 	try {
 		const deletedUser = UserService.deleteUser(req, res)
 		return res.status(200).json({
@@ -78,20 +61,4 @@ const deleteUser = async (req, res) => {
 	}
 }
 
-// const test = async (req, res) => {
-// 	//console.log('working')
-// 	bodyValidate(req, res);
-// 	return res.status(200).json({
-// 		message: "working",
-// 	});
-// };
-module.exports = {
-	adminLogin,
-	userLogin,
-	updateUser,
-	adminSignUp,
-	deleteUser,
-	userSignUp,
-};
-
-// module.exports.UserController = UserController;
+module.exports = UserController 

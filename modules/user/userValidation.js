@@ -29,15 +29,15 @@ class userValidation {
             body('firstName')
                 .isString()
                 .notEmpty()
-                .withMessage('required'),
+                .withMessage('firstName is required'),
             body('lastName')
                 .isString()
                 .notEmpty()
-                .withMessage('required'),
+                .withMessage('lastName is required'),
             body('phonenumber')
                 .isString()
                 .notEmpty()
-                .withMessage('required'),
+                .withMessage('phonenumber is required'),
             body('password')
                 .isString()
                 .isLength({ min: 5 })
@@ -48,7 +48,7 @@ class userValidation {
             body('email')
                 .isString()
                 .notEmpty()
-                .withMessage('required'),
+                .withMessage('email is required'),
                 
 
                 body('roles')
@@ -58,7 +58,6 @@ class userValidation {
                 .withMessage('required'),
 
         ]
-
     }
     //UPDATE USER VALIDATION
 
@@ -96,8 +95,6 @@ class userValidation {
                 .isString()
                 .notEmpty()
                 .withMessage('optional'),
-
-
         ]
 
     }
@@ -105,12 +102,8 @@ class userValidation {
     static deleteUser() {
         return [
             query('user_id')
-
         ]
     }
-
-
 }
-
 module.exports = userValidation;
 

@@ -2,34 +2,55 @@ const bookModel = require("../Books/bookModel");
 const User = require ("../user/userModel")
 const bookBorrowing = require ("./borrowingModel");
 
-
-module.exports.findBookByTitle = async (req, res) => {
+//FIND BOOK IN STORE BY ID
+module.exports.findBookById = async (req, res) => {
     try {
-        const bookTitle = req.query.book
-        const bookResult = await bookModel.find({ $text: { $search: bookTitle } })
-        if (bookResult.length ===0) return res.status(404).send({message:"no books found"})
+        const id = req.params.id
+        const bookResult = await bookModel.findById(id)
+        if (!bookResult) return res.status(404).send({message:"no books found"})
         return res.json({ bookResult })
     } catch (error) {
         console.error(error)
         return res.status(500).send({message:error.message})
     }
 }
+
 module.exports.userBorrowBook = async (req,res) => {
     try {
-        const singleUser = await User.findById(req.user.user_id)
+        console.log(req.user)
+        const singleUser = await User.findOne({email:req.user.email})
+        if (!singleUser) throw new Error("user not found!")
         const bookDto = {
             bookTitles:req.body.bookTitles,
             user:singleUser._id,
             numberOfDays:req.body.numberOfDays,
+            numberOfBooksToBeBorrowed:Number(req.body.numberOfBooksToBeBorrowed),
+            // numberOfBooksInStore:req.body.numberOfBooksInStore,
             borrowDate:new Date(),
-            returnDate:new Date().setDate(new Date().getDate() + numberOfDays),
-
-
+            returnDate:new Date().setDate(new Date().getDate() + req.body.numberOfDays),
         }
-        await startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
+        // console.log(bookDto)
+        //check if the bok exists
+        const findBook = await bookModel.findOne({bookTitle:req.body.bookTitles})
+        if (!findBook) throw new Error("this book cannot be found!")
+        // let checkFunc = await this.checkNumBooks(bookDto.numberOfBooksToBeBorrowed,findBook.numberOfBooksInStore)
+         if (findBook.numberOfBooksInStore - bookDto.numberOfBooksToBeBorrowed <=0 ) {
+            throw new Error("You cannot borrow more than the number of books in store") 
+         }
+        // if (Boolean(checkFunc) == false){
+        //     throw new Error("You cannot borrow more than the number of books in store")
+        // }
+            // throw new Error("You cannot borrow more than the number of books in store")
+
+            //update the number of books in the book document
+        findBook.numberOfBooksInStore = findBook.numberOfBooksInStore - bookDto.numberOfBooksToBeBorrowed
+        //mark modify the findbook
+        await findBook.markModified("numberOfBooksInStore")
+        await findBook.save()
+        await this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
         let newBorrow = new bookBorrowing(bookDto)
         await newBorrow.save()
-        return res.status(201).send({success:true,message:"created successfully"})
+        return res.status(201).send({success:true,message:"book borrowed sucessfully, proceed to payment"})
 
     } catch (err) {
         console.error(err)

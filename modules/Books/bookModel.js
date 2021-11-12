@@ -6,38 +6,30 @@ const BookSchema = new Schema(
         bookTitle: {
             type: String,
         },
+
         authorName: {
             type: String,
+        },
+
+        numberOfBooksInStore: {
+            type:Number
         },
         pricePerBook:{
             type:Number
         },
-        sex: {
-            type: String
-        },
 
-        isbnNumber: {//TODO: Please justify why you do this.
+        isbnNumber: {
             type: String,
         },
-        country: {
-            type: String
-        },//TODO: Why did you use the country as an Id?? are you creating the country some where and you are passing the Id of the model here or what?
+    
         noOfCopies: {
             type: Number,
         },
         publishDate: {
             type: String,
         },
-    
-        roles: {
-            type: String,
-            // enum: ["admin", "user"]
-        },
-
-        address: {
-            type: String,
-        },
     },
+
     {
         timestamps: true,
     }
