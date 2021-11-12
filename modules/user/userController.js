@@ -17,8 +17,6 @@ const UserController = {};
 		return res.status(201).json(result);
 	} catch (err) {
 		console.error(err);
-		// return handleDuplicateError(res,err)
-		// return res.status(500).send(err.message);
 		return errorFunction(res,err.message,500)
 	}
 }
