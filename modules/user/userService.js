@@ -29,27 +29,26 @@ UserService.findSingle = (email) => {
 }
 
 //helper function to check if an account already exists
-UserService.findSingleById = (id) => {
-	return UserModel.findById(id)
+UserService.findSingleById = async (id) => {
+	return await UserModel.findById(id)
 }
 
 UserService.updateUser = async (req, res) => {
-	return UserModel.findByIdAndUpdate(req.params.id, req.body, {
+	return await UserModel.findByIdAndUpdate(req.params.id, req.body, {
 		new: true,
 	});
 }
 
 UserService.deleteUser = async (req, res) => {
 	const id = req.params.id;
-	return UserModel.findByIdAndDelete(id);
+	let user =  await UserModel.findById(id)
+	let deleteUser = await UserModel.deleteOne({_id:id})
+	return {user,deleteUser}	
 };
 
 
 UserService.userSignUp = async (req, res) => {
-	const { firstName } = req.body;
-	// console.log(req.body)
-	const user = await UserModel.create({ ...req.body });
-	console.log(user)
+	const user = await UserModel.create(req.body);
 	const token = UserService.generateJwt({ user_id: user._id, roles: req.body.roles });
 	return { user, token };
 

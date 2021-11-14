@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const User = require("../modules/user/userModel");
-// const {invalidTokenError,SysError} = require('../helper/error')
 const requireAuth = async (req, res, next) => {
 	try {
 		const auth = req.headers["authorization"];
@@ -14,10 +13,14 @@ const requireAuth = async (req, res, next) => {
 				return res.status(401).json({ message: "logged out" });
 			}
 			req.user = currentUser
-			next();
-		} else return invalidTokenError(res,"Invalid token, sign-in to access this resource",401)
+			
+		}else {
+			res.status(401).json({message : "Invalid token, sign-in to access this resource"})
+		}
+		next();
 	} catch (error) {
-		return invalidTokenError(res,"Invalid token, sign-in to access this resource",401)
+		console.error(error)
+		return res.status(401).json({message :"Invalid token, sign-in to access this resource"})
 	}
 };
 

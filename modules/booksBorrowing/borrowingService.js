@@ -1,9 +1,14 @@
 const bookModel = require("../Books/bookModel");
 const User = require ("../user/userModel")
 const bookBorrowing = require ("./borrowingModel");
+const {bookTitleExists} = require('../Books/bookService')
+const ObjectID = require('mongodb').ObjectId
+const {checkIfBooksExists} = require('./borrowingGuard')
 
 //FIND BOOK IN STORE BY ID
-module.exports.findBookById = async (req, res) => {
+booksBorrowingService ={};
+
+booksBorrowingService.findBookById = async (req, res) => {
     try {
         const id = req.params.id
         const bookResult = await bookModel.findById(id)
@@ -15,39 +20,42 @@ module.exports.findBookById = async (req, res) => {
     }
 }
 
-module.exports.userBorrowBook = async (req,res) => {
+
+booksBorrowingService.userBorrowBook = async (req,res) => {
     try {
         console.log(req.user)
-        const singleUser = await User.findOne({email:req.user.email})
+        const singleUser = await User.findOne({_id:new ObjectID(req.user._id)})
         if (!singleUser) throw new Error("user not found!")
+        let bookTitle = req.body.book
+        if (!bookTitleExists(bookTitle)){
+            throw new Error("book not found")
+        }
         const bookDto = {
-            bookTitles:req.body.bookTitles,
+            bookId:new ObjectID(req.body.bookId),
             user:singleUser._id,
-            numberOfDays:req.body.numberOfDays,
+            // numberOfDays:req.body.numberOfDays,
             numberOfBooksToBeBorrowed:Number(req.body.numberOfBooksToBeBorrowed),
-            // numberOfBooksInStore:req.body.numberOfBooksInStore,
             borrowDate:new Date(),
-            returnDate:new Date().setDate(new Date().getDate() + req.body.numberOfDays),
+            // returnDate:new Date().setDate(new Date().getDate() + req.body.numberOfDays),
         }
         // console.log(bookDto)
         //check if the bok exists
-        const findBook = await bookModel.findOne({bookTitle:req.body.bookTitles})
-        if (!findBook) throw new Error("this book cannot be found!")
+        await checkIfBooksExists(bookDto.bookId)
+        // if (!findBook) throw new Error("this book cannot be found!")
+
+        const findBook = await bookModel.findOne({_id:bookDto.bookId})
+        // if (!findBook) throw new Error("this book cannot be found!")
         // let checkFunc = await this.checkNumBooks(bookDto.numberOfBooksToBeBorrowed,findBook.numberOfBooksInStore)
-         if (findBook.numberOfBooksInStore - bookDto.numberOfBooksToBeBorrowed <=0 ) {
-            throw new Error("You cannot borrow more than the number of books in store") 
+         if (findBook.noOfCopies - bookDto.numberOfBooksToBeBorrowed <1 ) {
+            return res.status(400).json ({message :"You cannot borrow all or more than the number of books in store"}) 
          }
-        // if (Boolean(checkFunc) == false){
-        //     throw new Error("You cannot borrow more than the number of books in store")
-        // }
-            // throw new Error("You cannot borrow more than the number of books in store")
 
             //update the number of books in the book document
-        findBook.numberOfBooksInStore = findBook.numberOfBooksInStore - bookDto.numberOfBooksToBeBorrowed
+        findBook.noOfCopies = findBook.noOfCopies - bookDto.numberOfBooksToBeBorrowed
         //mark modify the findbook
-        await findBook.markModified("numberOfBooksInStore")
+        await findBook.markModified("noOfCopies")
         await findBook.save()
-        await this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
+        // await this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
         let newBorrow = new bookBorrowing(bookDto)
         await newBorrow.save()
         return res.status(201).send({success:true,message:"book borrowed sucessfully, proceed to payment"})
@@ -59,20 +67,9 @@ module.exports.userBorrowBook = async (req,res) => {
     }
 }
 
-// const FREE_PERIOD = 3;
 
-module.exports.startAndEndDates = (startDate,days) => {
-    const endDate = new Date().setDate(startDate.getDate() + days);
-    if (days>3) throw new Error("You can not borrow a book for more than three days")
-    return endDate
-}
-
-module.exports.checkReturnDateExceeded = (current, end) => {
-    return current - end > 0 ? false : true
-}
+module.exports = booksBorrowingService 
 
 
 
-// console.log(checkReturnDateExceeded(12,13))
-// console.log(startAndEndDates(new Date(),3))
 

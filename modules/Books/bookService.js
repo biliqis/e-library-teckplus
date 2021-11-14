@@ -2,8 +2,9 @@ const bookModel = require("./bookModel")
 const { countDocuments } = require('../user/userService')
 const bookService = {};
 
-bookService.bookTitleExists = (bookTitle) => {
-	return bookModel.countDocuments({ bookTitle }).then((count) => count > 0)
+bookService. bookTitleExists = async (bookTitle) => {
+	const count = await bookModel.countDocuments({ bookTitle });
+	return count > 0;
 }
 
 bookService. bookIdExists = async (bookId) => {
@@ -62,3 +63,4 @@ bookService. searchBooks = async (req, res) => {
 	}
 }
 
+module.exports = bookService

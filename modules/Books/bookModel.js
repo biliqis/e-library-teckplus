@@ -7,13 +7,17 @@ const BookSchema = new Schema(
             type: String,
         },
 
+
         authorName: {
             type: String,
         },
 
-        numberOfBooksInStore: {
-            type:Number
-        },
+
+        isAvailable: {
+			type: Boolean,
+		},
+
+
         pricePerBook:{
             type:Number
         },
@@ -38,3 +42,8 @@ const BookSchema = new Schema(
 //enable search indexing
 BookSchema.index({ '$**': 'text' })
 module.exports = mongoose.model("book", BookSchema);
+
+
+
+
+

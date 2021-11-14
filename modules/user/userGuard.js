@@ -23,7 +23,7 @@ userGuard.userSignUpGuard = async (req) => {
 
 };
 
-userGuard.bodyValidate = (req, res) => {
+userGuard.UserValidator = (req, res) => {
 	const result = validationResult(req);
 
 	const hasErrors = !result.isEmpty();
@@ -40,6 +40,7 @@ userGuard.bodyValidate = (req, res) => {
 
 
 userGuard.userEmailExists = async (req) => {
+	console.log(req.body)
 	try {
 		console.log(req.body.email)
 		const result = await UserService.findSingle(
@@ -92,4 +93,4 @@ userGuard.deleteUsers = async (req) => {
 		throw new Error("User with id not found");
 	}
 };
-module.exports =  userGuard 
+module.exports = { userGuard }

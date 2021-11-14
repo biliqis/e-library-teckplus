@@ -1,5 +1,4 @@
 // baseError.js
-const baseError = require("../error/globalError")
 class BaseError extends Error {
     constructor (statusCode, description) {
     super(description)
@@ -8,4 +7,4 @@ class BaseError extends Error {
     Error.captureStackTrace(this)
     }
    }
-   module.exports = BaseError
+module.exports = BaseError

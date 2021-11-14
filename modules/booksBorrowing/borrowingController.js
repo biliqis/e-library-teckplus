@@ -1,10 +1,14 @@
 const { findBookById,userBorrowBook } = require("./borrowingService")
+const { booksBorrowingValidator } = require("./borrowingValidator")
 
+booksBorrowingController ={};
 
-module.exports.searchBooksById = async (req,res) => {
-    return findBookById(req,res)
+booksBorrowingController.searchBooksById = async (req,res) => {
+    return await findBookById(req,res)
 }
 
-module.exports.createUserBorrowBook = async (req,res) => {
+booksBorrowingController.createUserBorrowBook = async (req,res) => {
     return userBorrowBook(req,res)
 }
+
+module.exports = booksBorrowingController

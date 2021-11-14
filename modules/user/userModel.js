@@ -27,31 +27,19 @@ const userSchema = new mongoose.Schema({
 		enum: ["male", "female"]
 	},
 
-	occupation: {
-		type: String,
-	},
-
 	roles: {
 
 		type: String,
 
 		enum: ["admin", "user"]
 	},
-	age: {
-		type: String,
-	},
 
 	address: {
 		type: String,
-	},
+	}
+},{timestamps:true});
 
-	registrationDate: {
-		type: Date,
-		default: Date.now,
-	},
-});
-
-// fire a mongoose hook to hash passwords before doc saved to db
+//fire a mongoose hook to hash passwords before doc saved to db
 userSchema.pre("save", async function (next) {
 	const salt = await bcrypt.genSalt();
 	this.password = await bcrypt.hash(this.password, salt);

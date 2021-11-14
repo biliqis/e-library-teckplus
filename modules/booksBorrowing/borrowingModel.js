@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const bookSchema = require('../Books/bookModel')
 
 const borrowedBookSchema = new mongoose.Schema({
-    bookTitles: {
+    bookId: {
         type: String
     },
 
@@ -15,16 +15,13 @@ const borrowedBookSchema = new mongoose.Schema({
         type: Number,
     },
     
-    numberOfDays: {
-        type: Number
-    },
-
     borrowDate: {
         type: Date
     },
 
     returnDate: {
-        type: Date
+        type: Date,
+        default:Date.now
     },
     returned:{
         type:Boolean,
@@ -33,3 +30,4 @@ const borrowedBookSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model("borrowedBook",borrowedBookSchema)
+

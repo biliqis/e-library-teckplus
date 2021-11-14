@@ -1,20 +1,21 @@
 require("dotenv").config();
 const { dbConnect } = require("./db");
-const baseError = require("./error/globalError")
 const express = require("express");
 const routes = require("./routes");
 const logger = require("loglevel")
 const morgan = require("morgan")
 const bodyParser = require('body-parser')
+
+
 const app = express();
-//connection();
-app.use((globalError));
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json());
 
 app.use(morgan("dev"))
 app.use(routes);
 const port = process.env.PORT || 8080;
+// app.use((globalError));
 async function bootstrap() {
 	try {
 		await dbConnect();
@@ -30,6 +31,5 @@ async function bootstrap() {
 	}
 
 }
+
 bootstrap();
-
-
