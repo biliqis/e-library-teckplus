@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(morgan("dev"))
 app.use(routes);
 const port = process.env.PORT || 8080;
-// app.use((globalError));
 async function bootstrap() {
 	try {
 		await dbConnect();
