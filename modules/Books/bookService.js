@@ -1,23 +1,28 @@
 const bookModel = require("./bookModel")
+const fs = require('fs');
+const path = require('path')
+
 const { countDocuments } = require('../user/userService')
+
+
 const bookService = {};
 
-bookService. bookTitleExists = async (bookTitle) => {
+bookService.bookTitleExists = async (bookTitle) => {
 	const count = await bookModel.countDocuments({ bookTitle });
 	return count > 0;
 }
 
-bookService. bookIdExists = async (bookId) => {
+bookService.bookIdExists = async (bookId) => {
 	const book = await bookModel.findById(bookId)
 	return book
 }
 
-bookService. countBooks = async (books) => {
+bookService.countBooks = async (books) => {
 	let totalBooks = await bookModel.countDocuments(books)
 	return totalBooks
 }
 
-bookService. getAllBooksPaginated = async (page, limit) => {
+bookService.getAllBooksPaginated = async (page, limit) => {
 	const books = await bookModel.find()
 		.limit(limit * 1)
 		.skip((page - 1) * limit)
@@ -25,19 +30,17 @@ bookService. getAllBooksPaginated = async (page, limit) => {
 	return books
 }
 
-bookService. createBookService = async (book) => {
+bookService.createBookService = async (req,book) => {
 	try {
-
-		const model = new bookModel({ ...book })
+		const model = new bookModel(book)
 		return model.save()
-
 	} catch (error) {
 		console.error(error)
-		return res.json({ message: err.message })
 	}
+
 	//console.log(model)
 }
-bookService. updateBookService = async (bookId, book) => {
+bookService.updateBookService = async (bookId, book) => {
 	return bookModel.findByIdAndUpdate(
 		{ _id: bookId },
 		{ ...book },
@@ -45,12 +48,12 @@ bookService. updateBookService = async (bookId, book) => {
 	);
 }
 
-bookService. deleteBookService = async (bookId) => {
-	
+bookService.deleteBookService = async (bookId) => {
+
 	return await bookModel.deleteOne({ _id: bookId });
 }
 
-bookService. searchBooks = async (req, res) => {
+bookService.searchBooks = async (req, res) => {
 	try {
 		let book = req.query.book
 		const bookResult = await bookModel.find({ $text: { $search: book } })

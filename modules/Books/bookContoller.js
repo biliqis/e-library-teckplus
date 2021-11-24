@@ -3,6 +3,8 @@
 //const { createBookValidator, editUserValidator } = require("./bookValidator");
 const bookService = require("../Books/bookService")
 const bookModel = require("../Books/bookModel")
+const path = require('path')
+const fs = require('fs')
 
 
 const bookController = {}
@@ -10,12 +12,17 @@ const bookController = {}
 bookController.createBook = async (req, res) => {
     try {
         // const data = await createBookValidator.validateAsync(req.body);
-        const bookData = await bookService.createBookService(req.body);
-        //console.log(bookData)
+        let bookObj = {...req.body,bookCover:{
+            data: fs.readFileSync(path.join('/home/temidayo/Desktop/E_library/uploads', req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+        const bookData = await bookService.createBookService(req,bookObj);
+        console.log(bookData)
         return res.json({ message:"book created successfully",bookData })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "Error Occured" });
+        return res.json({ message: "Error Occured" });
     }
 }
 
@@ -54,10 +61,13 @@ bookController.getSingleBook = async (req, res, next) => {
 }
 
 bookController.getAllBooksPagination = async (req, res, next) => {
-    const { page, limit } = req.query
+    let { page, limit } = req.query
     console.log(page, limit)
     try {
-        const books = await bookService.getAllBooksPaginated(page, limit)
+        const books = await bookService.getAllBooksPaginated(page=1, limit=10)
+        const allBooks = await bookModel.find({})
+        //IF NO BOOKS IN THE DB
+        if (allBooks.length === 0) return res.status(200).send({message:"No books added yet, please check back"})
         res.status(200).json({
             message: 'success',
             length: `${books.length} data retrieved`, data: books
@@ -67,6 +77,8 @@ bookController.getAllBooksPagination = async (req, res, next) => {
         return res.json({ message: err.message })
     }
 }
+
+
 
 module.exports = bookController
 

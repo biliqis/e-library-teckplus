@@ -19,24 +19,28 @@ const userSchema = new mongoose.Schema({
 		type: String,
 	},
 
+	confirmPassword:{
+		type:String,
+	},
+
 	phonenumber: {
 		type: String,
 	},
+
 	gender: {
 		type: String,
 		enum: ["male", "female"]
 	},
 
-	roles: {
-
+	role: {
 		type: String,
-
 		enum: ["admin", "user"]
 	},
 
 	address: {
 		type: String,
 	}
+	
 },{timestamps:true});
 
 //fire a mongoose hook to hash passwords before doc saved to db

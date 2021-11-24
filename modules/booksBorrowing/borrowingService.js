@@ -8,6 +8,12 @@ const {checkIfBooksExists} = require('./borrowingGuard')
 //FIND BOOK IN STORE BY ID
 booksBorrowingService ={};
 
+module.exports.startAndEndDates = (startDate,days) => {
+    const endDate = new Date().setDate(startDate.getDate() + days);
+    if (days>3) throw new Error("You can not borrow a book for more than three days")
+    return endDate
+}
+
 booksBorrowingService.findBookById = async (req, res) => {
     try {
         const id = req.params.id
@@ -39,7 +45,7 @@ booksBorrowingService.userBorrowBook = async (req,res) => {
             // returnDate:new Date().setDate(new Date().getDate() + req.body.numberOfDays),
         }
         // console.log(bookDto)
-        //check if the bok exists
+        //check if the book exists
         await checkIfBooksExists(bookDto.bookId)
         // if (!findBook) throw new Error("this book cannot be found!")
 
@@ -55,7 +61,7 @@ booksBorrowingService.userBorrowBook = async (req,res) => {
         //mark modify the findbook
         await findBook.markModified("noOfCopies")
         await findBook.save()
-        // await this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
+        await this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
         let newBorrow = new bookBorrowing(bookDto)
         await newBorrow.save()
         return res.status(201).send({success:true,message:"book borrowed sucessfully, proceed to payment"})

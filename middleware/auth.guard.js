@@ -47,11 +47,12 @@ const checkUser = async (req, res, next) => {
 
 
 const checkIfUserIsAdmin = (req, res, next) => {
-	console.log(req.user.roles)
-	if (req.user.roles === "user") return res.status(400).json({ message: "Sorry you are not allowed to perform this operation" })
+	console.log(req.user.role)
+	if (req.user.role === "user") return res.status(400).json({ message: "Sorry you are not allowed to perform this operation" })
 	next()
 
 }
+
 
 
 module.exports = { requireAuth, checkUser, checkIfUserIsAdmin };

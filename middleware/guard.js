@@ -4,8 +4,9 @@ module.exports.useGuard = (guard) => {
 			await guard(req);
 			next()
 		} catch (e) {
+			console.error(e)
 			// TODO: CUSTOMIZE TO YOUR NEED LATER
-			return res.status(400).json({ message: e.message });
+			return res.json({ message: e.message });
 		}
 
 	};

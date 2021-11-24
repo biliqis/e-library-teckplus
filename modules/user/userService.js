@@ -7,7 +7,6 @@ const bcrypt = require("bcryptjs");
 const UserModel = require("./userModel");
 
 const UserService = {};
-
 UserService.generateJwt = (userObj) => {
 	return jwt.sign(userObj, jwtSecretKey, {
 		expiresIn: process.env.JWT_EXP,
@@ -48,6 +47,10 @@ UserService.deleteUser = async (req, res) => {
 
 
 UserService.userSignUp = async (req, res) => {
+	if (!req.body.password === req.body.confirmPassword) {
+		// return res.status(401).send({message:"fields do not match"})
+		throw new Error("fields do not match",401)
+	}
 	const user = await UserModel.create(req.body);
 	const token = UserService.generateJwt({ user_id: user._id, roles: req.body.roles });
 	return { user, token };
@@ -58,8 +61,21 @@ UserService.userSignUp = async (req, res) => {
 UserService.userLogin = async (req, res) => {
 	const user = await UserModel.findOne({ email: req.body.email, })
 	const token = UserService.generateJwt({ user_id: user._id, roles: req.body.roles });
-
+	
 	return { user, token }
+};
+
+UserService.logOutUser = async (req,res)=>{
+	const auth = req.headers["authorization"];
+		let token = auth.split("Bearer")[1].trim();
+		const decoded = jwt.verify(token, process.env.JWT_SECRET);
+		console.log(decoded)
+		let loggedOutToken = jwt.sign({id:decoded.user_id},  jwtSecretKey, {
+			expiresIn:"1s"
+		});
+		req.headers["authorization"] = loggedOutToken
+		console.log(loggedOutToken);
+		return res.status(200).send({message:"logged out successfully", loggedOutToken})
 }
 
 

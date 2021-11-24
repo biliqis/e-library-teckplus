@@ -8,7 +8,7 @@ module.exports.useBodyValidator = (schema) => {
         req.body = data;
         next();
       } catch (e) {
-        const message = e.details[0].message;
+        const message = e.message;
         return res.status(404).send({message:message})
       }
     };

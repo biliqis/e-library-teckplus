@@ -12,23 +12,37 @@ const BookSchema = new Schema(
             type: String,
         },
 
+        bookCover: {
+            data: Buffer,
+             contentType: String,
+        },
+
 
         isAvailable: {
-			type: Boolean,
-		},
+            type: Boolean,
+        },
 
-
-        pricePerBook:{
-            type:Number
+        pricePerBook: {
+            type: Number
         },
 
         isbnNumber: {
             type: String,
         },
-    
+
         noOfCopies: {
             type: Number,
         },
+
+        // availableCopies: {
+        //     type: Number,
+        // },
+
+        description: {
+            type: String,
+        },
+        
+
         publishDate: {
             type: String,
         },
