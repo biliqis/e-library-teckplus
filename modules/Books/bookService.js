@@ -30,9 +30,10 @@ bookService.getAllBooksPaginated = async (page, limit) => {
 	return books
 }
 
-bookService.createBookService = async (req,book) => {
+bookService.createBookService = async (req, book) => {
 	try {
-		const model = new bookModel(book)
+		let newBook = {...book,approved:"pending"}
+		const model = new bookModel(newBook)
 		return model.save()
 	} catch (error) {
 		console.error(error)
@@ -64,6 +65,18 @@ bookService.searchBooks = async (req, res) => {
 		return res.status(500).send({ message: error.message })
 
 	}
+}
+bookService.approveBook = async (req, res) => {
+	try {
+		const id = req.params.id
+		const updateBook = await bookModel.findByIdAndUpdate(id,req.body)
+		return res.status(200).send({message:"book successfully updated!",updateBook})
+	} catch (error) {
+		console.error(error)
+		return res.status(500).send({ message: error.message })
+
+	}
+
 }
 
 module.exports = bookService

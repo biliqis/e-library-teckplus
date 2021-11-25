@@ -4,32 +4,12 @@ const express = require("express");
 const routes = require("./routes");
 const logger = require("loglevel")
 const morgan = require("morgan")
-const cron =require ('node-cron')
+const cron = require('node-cron')
 const bodyParser = require('body-parser')
-const bookModel = require ("./modules/Books/bookModel")
-
-
 const app = express();
-// app.use(bodyParser.json())
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
-
-const checkStock = async () => {
-	const allBooks = await bookModel.find({})
-	allBooks.forEach(async (book) => {
-		if (book.noOfCopies === 0){
-			book.isAvailable = false
-		}
-		await book.markModified("isAvailable")
-		await book.save()
-		
-	});
-	console.log("cron is running")
-	return "book task is running"
-}
-
-cron.schedule('* * * * *', () => checkStock())
-
 app.use(morgan("dev"))
 
 app.use(routes);

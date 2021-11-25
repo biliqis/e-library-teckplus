@@ -1,22 +1,20 @@
 
-//const { bookTitleExists, bookIdExists, createBookService, getAllBookService, getAllBooksPaginated, deleteBookService, updateBookService, searchBooks } = require("./bookService");
-//const { createBookValidator, editUserValidator } = require("./bookValidator");
 const bookService = require("../Books/bookService")
 const bookModel = require("../Books/bookModel")
 const path = require('path')
 const fs = require('fs')
+const {cloudinary} = require ("../../util/cloud")
 
 
 const bookController = {}
 //create a book
 bookController.createBook = async (req, res) => {
     try {
-        // const data = await createBookValidator.validateAsync(req.body);
-        let bookObj = {...req.body,bookCover:{
-            data: fs.readFileSync(path.join('/home/temidayo/Desktop/E_library/uploads', req.file.filename)),
-            contentType: 'image/png'
-        }
-    }
+         // Upload image to cloudinary
+         const result = await cloudinary.uploader.upload(req.file.path);
+         console.log(result)
+              let bookObj = {...req.body,bookCover:result.secure_url}
+
         const bookData = await bookService.createBookService(req,bookObj);
         console.log(bookData)
         return res.json({ message:"book created successfully",bookData })
@@ -39,9 +37,9 @@ bookController.updateBook = async (req, res, next) => {
     return res.json({ message: `Book with the ID ${bookId} is updated successfully`, bookData })
 
 }
+
+
 //get all books with pagination
-
-
 bookController.getAllBooks = async (req, res) => {
     const allBooks = await bookService.getAllBooksPaginated()
     console.log(allBooks)
@@ -60,6 +58,12 @@ bookController.getSingleBook = async (req, res, next) => {
     return res.status(200).json({ message: "Books retrieved successfully", book })
 }
 
+// //approve book
+// bookController.approveBook = async (req, res)=>{
+//     const data =  await bookService.approveBook(req,res);
+//     return data
+// }
+
 bookController.getAllBooksPagination = async (req, res, next) => {
     let { page, limit } = req.query
     console.log(page, limit)
@@ -77,8 +81,6 @@ bookController.getAllBooksPagination = async (req, res, next) => {
         return res.json({ message: err.message })
     }
 }
-
-
 
 module.exports = bookController
 

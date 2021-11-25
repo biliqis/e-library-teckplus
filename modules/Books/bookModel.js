@@ -7,16 +7,13 @@ const BookSchema = new Schema(
             type: String,
         },
 
-
         authorName: {
             type: String,
         },
 
         bookCover: {
-            data: Buffer,
-             contentType: String,
+            type: String
         },
-
 
         isAvailable: {
             type: Boolean,
@@ -34,18 +31,23 @@ const BookSchema = new Schema(
             type: Number,
         },
 
-        // availableCopies: {
-        //     type: Number,
-        // },
+        availableCopies: {
+            type: Number,
+        },
+
+        borrowedCopies: {
+            type: Number,
+        },
+
 
         description: {
             type: String,
         },
-        
 
         publishDate: {
-            type: String,
+            type: Date,
         },
+
     },
 
     {
