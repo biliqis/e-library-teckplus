@@ -46,6 +46,7 @@ const BookSchema = new Schema(
 
         publishDate: {
             type: Date,
+            default:Date.now
         },
 
     },

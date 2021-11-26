@@ -29,42 +29,41 @@ booksBorrowingService.findBookById = async (req, res) => {
 
 booksBorrowingService.userBorrowBook = async (req,res) => {
     try {
-        console.log(req.user)
         const singleUser = await User.findOne({_id:new ObjectID(req.user._id)})
         if (!singleUser) throw new Error("user not found!")
-        let bookTitle = req.body.book
-        if (!bookTitleExists(bookTitle)){
+        let bookTitle = req.body.bookTitle
+        const bookData = await bookTitleExists(bookTitle)
+        console.log(bookData)
+        if (!bookData){
             throw new Error("book not found")
         }
         const bookDto = {
-            bookId:new ObjectID(req.body.bookId),
+            bookId:bookData._id,
             user:singleUser._id,
-            // numberOfDays:req.body.numberOfDays,
-            numberOfBooksToBeBorrowed:Number(req.body.numberOfBooksToBeBorrowed),
+            numberOfDays:Number(req.body.numberOfDays),
+            // numberOfBooksToBeBorrowed:Number(req.body.numberOfBooksToBeBorrowed),
             borrowDate:new Date(),
-            // returnDate:new Date().setDate(new Date().getDate() + req.body.numberOfDays),
+            returnDate:new Date().setDate(new Date().getDate() + req.body.numberOfDays),
         }
-        // console.log(bookDto)
         //check if the book exists
         await checkIfBooksExists(bookDto.bookId)
-        // if (!findBook) throw new Error("this book cannot be found!")
 
         const findBook = await bookModel.findOne({_id:bookDto.bookId})
         // if (!findBook) throw new Error("this book cannot be found!")
         // let checkFunc = await this.checkNumBooks(bookDto.numberOfBooksToBeBorrowed,findBook.numberOfBooksInStore)
-         if (findBook.noOfCopies - bookDto.numberOfBooksToBeBorrowed <1 ) {
+         if (findBook.noOfCopies <=1 ) {
             return res.status(400).json ({message :"You cannot borrow all or more than the number of books in store"}) 
          }
 
-            //update the number of books in the book document
-        findBook.noOfCopies = findBook.noOfCopies - bookDto.numberOfBooksToBeBorrowed
-        //mark modify the findbook
-        await findBook.markModified("noOfCopies")
-        await findBook.save()
-        await this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
+        //     //update the number of books in the book document
+        // findBook.noOfCopies = findBook.noOfCopies - bookDto.numberOfBooksToBeBorrowed
+        // //mark modify the findbook
+        // await findBook.markModified("noOfCopies")
+        // await findBook.save()
+        this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
         let newBorrow = new bookBorrowing(bookDto)
         await newBorrow.save()
-        return res.status(201).send({success:true,message:"book borrowed sucessfully, proceed to payment"})
+        return res.status(201).send({success:true,message:"request submitted successfully, the moderators will review your request"})
 
     } catch (err) {
         console.error(err)
@@ -75,7 +74,5 @@ booksBorrowingService.userBorrowBook = async (req,res) => {
 
 
 module.exports = booksBorrowingService 
-
-
 
 

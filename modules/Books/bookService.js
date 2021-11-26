@@ -8,8 +8,8 @@ const { countDocuments } = require('../user/userService')
 const bookService = {};
 
 bookService.bookTitleExists = async (bookTitle) => {
-	const count = await bookModel.countDocuments({ bookTitle });
-	return count > 0;
+	const count = await bookModel.findOne({ bookTitle });
+	return count
 }
 
 bookService.bookIdExists = async (bookId) => {

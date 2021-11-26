@@ -13,15 +13,20 @@ const borrowedBookSchema = new mongoose.Schema({
     },
     numberOfBooksToBeBorrowed: {
         type: Number,
+        default:1
     },
     
     borrowDate: {
-        type: Date
+        type: Date,
+        default:Date.now
     },
 
     returnDate: {
-        type: Date,
-        default:Date.now
+        type: Date
+    },
+    status:{
+        type:String,
+        default:"pending"
     },
     returned:{
         type:Boolean,
