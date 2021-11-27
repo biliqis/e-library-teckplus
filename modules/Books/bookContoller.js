@@ -1,4 +1,3 @@
-
 const bookService = require("../Books/bookService")
 const bookModel = require("../Books/bookModel")
 const path = require('path')
@@ -11,9 +10,10 @@ const bookController = {}
 bookController.createBook = async (req, res) => {
     try {
          // Upload image to cloudinary
-         const result = await cloudinary.uploader.upload(req.file.path);
+        //  const result = await cloudinary.uploader.upload(req.file.path);
+        const result = req.uploads
          console.log(result)
-              let bookObj = {...req.body,bookCover:result.secure_url}
+              let bookObj = {...req.body,bookCover:result.Location}
 
         const bookData = await bookService.createBookService(req,bookObj);
         console.log(bookData)

@@ -9,7 +9,8 @@ const bookGuard = require("./bookGuard")
 
 const { booksValidator } = require("./bookValidator")
 const upload = require('../../util/upload')
-const {parser} = require("../../util/cloud")
+const awsMiddleware = require('../../util/aws_storage')
+// const {parser} = require("../../util/cloud")
 
 const checkIfUserIsAdmin = require('../../middleware/auth.guard');
 const bookController = require("../Books/bookContoller");
@@ -17,7 +18,7 @@ const bookController = require("../Books/bookContoller");
 
 //router.post("/create", upload.single('image'), requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), useBodyValidator(booksValidator.createBookValidator), useGuard(bookGuard.createBookGuard), bookContoller.createBook);
 
-router.post("/create", parser.single('image'), requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), useBodyValidator(booksValidator.createBookValidator), useGuard(bookGuard.createBookGuard), bookContoller.createBook);
+router.post("/create", upload.single('image'), awsMiddleware.uploadImage, requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), useBodyValidator(booksValidator.createBookValidator), useGuard(bookGuard.createBookGuard), bookContoller.createBook);
 router.patch("/update/:id", requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), useBodyValidator(booksValidator.editUserValidator), useGuard(bookGuard.updateBookGuard), bookController.updateBook);
 router.get("/get-books", bookController.getAllBooksPagination);
 router.get('/search-books', bookController.searchAll)

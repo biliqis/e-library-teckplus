@@ -6,7 +6,7 @@ const booksBorrowingValidator = {};
 
 booksBorrowingValidator.booksBorrowingValidator = Joi.object().keys({
 
-  bookId: Joi.string().required().messages({
+  bookId: Joi.string().optional().messages({
     "string.base": `"Book ID" should be of type 'string'`,
     "string.empty": `"Book ID" cannot be an empty string`,
   }),

@@ -1,7 +1,7 @@
 const multer = require('multer')
 
 //setting up multer for file uploading
-let storage = multer.diskStorage({
+let storage = multer.memoryStorage({
 	destination: (req, file, cb) => {
 		cb(null, 'uploads')
 	},

@@ -4,7 +4,8 @@ const bookSchema = require('../Books/bookModel')
 
 const borrowedBookSchema = new mongoose.Schema({
     bookId: {
-        type: String
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"book"
     },
 
     user:{

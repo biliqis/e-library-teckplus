@@ -1,9 +1,9 @@
 const borrowingModel = require("../booksBorrowing/borrowingModel")
 const bookModel = require('../Books/bookModel')
 const ObjectId = require("mongodb").ObjectId;
-const mongoose = require ("mongoose")
-const AdminService = {};
+const mongoose = require("mongoose")
 
+const AdminService = {};
 
 //GET A SINGLE REQUEST
 AdminService.getSingleRequest = async (req, res) => {
@@ -11,11 +11,9 @@ AdminService.getSingleRequest = async (req, res) => {
         const requestId = req.params.borrowedId
         const bookData = await borrowingModel.findById(requestId);
         return res.status(200).json({ message: "fetched successfully", bookData })
-
     } catch (err) {
         console.error(err)
         return res.status(500).send({ message: err.message })
-
     };
 };
 
@@ -25,18 +23,22 @@ AdminService.approveBookBorrowingRequest = async (req, res) => {
         const { borrowedId } = req.params
         let findPendingBookRequest = await borrowingModel.findById(borrowedId)
         console.log(findPendingBookRequest)
-        //find the actual book
-        const book = await bookModel.findById(mongoose.Types.ObjectId(findPendingBookRequest.bookId))
-        //const book = await bookModel.findById(new ObjectId(findPendingBookRequest.bookId))
-        // const book = await bookModel.findById( findPendingBookRequest.bookId)
-         console.log(book)
 
-        //reduce the copies
+AdminService.declineBooks = async (req, res)=>{
+    const { borrowedId} = req.params
+    let pendingBooksRequest = await borrowingModel.findById(borrowedId)
+}
+
+        //FIND THE ACTUAL BOOK
+        const book = await bookModel.findById(new ObjectId(findPendingBookRequest.bookId))
+        //console.log(book)
+
+        //REDUCE BOOK COPIES
         book.noOfCopies = book.noOfCopies - 1
         await book.markModified("noOfCopies")
         await book.save()
 
-        //update the status of the borrowing model
+        //UPDATE THE STATUS OF THE BORROWING MODEL
         findPendingBookRequest.status = "approved"
         await findPendingBookRequest.markModified("status")
         await findPendingBookRequest.save()
@@ -46,11 +48,32 @@ AdminService.approveBookBorrowingRequest = async (req, res) => {
         return res.status(500).send({ message: err.message })
     }
 }
-
-
-//INITIATE BOOK REDUCTION IN THE DATABASE
-const bookReductionService = (noOfCopies) => {
-    return noOfCopies - 1
+//GET ALL BORROWED BOOKS REQUEST
+AdminService.getAllBorrowRequest = async (req, res) => {
+    try {
+        const allBooks = await borrowingModel.find().populate('bookId')
+        return res.status(200).send({ message: "All books request successful", allBooks })
+    } catch (error) {
+        console.err(error)
+        return res.status(500).send({ message: err.message })
+    }
 }
+
+//GET ALL PENDING BORROWED BOOKS
+AdminService.getAllPendingRequest = async (req, res) => {
+    try {
+        const pendingBooks = await borrowingModel.find({ status: "pending" }).populate('bookId')
+        return res.status(200).send({ message: "pending books request successful", pendingBooks })
+    } catch (error) {
+        console.err(error)
+        return res.status(500).send({ message: err.message })
+    }
+}
+
+
+AdminService.updatingBook = async (req, res) => {
+    return await bookModel.findByIdAndUpdate(new ObjectId(req.params.id), 
+        {$inc : {'noOfCopies': +1}}, { new: true })
+    }
 
 module.exports = AdminService

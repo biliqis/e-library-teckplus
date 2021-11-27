@@ -46,10 +46,9 @@ const checkUser = async (req, res, next) => {
 };
 
 
-const checkIfUserIsAdmin = (req, res, next) => {
+const checkIfUserIsAdmin = (req, res) => {
 	console.log(req.user)
 	if (req.user.role === "user") return res.status(400).json({ message: "Sorry you are not allowed to perform this operation" })
-	next()
 
 }
 
