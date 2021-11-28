@@ -1,18 +1,29 @@
 require("dotenv").config();
 const { dbConnect } = require("./db");
 const express = require("express");
-const routes = require("./routes");
 const logger = require("loglevel")
 const morgan = require("morgan")
 const cron = require('node-cron')
 const bodyParser = require('body-parser')
+const { engine } = require('express-handlebars');
+
+const routes = require("./routes");
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(morgan("dev"))
+app.use(express.static("public"));
+
+app.engine('hbs', engine({extname: "hbs", defaultLayout: "layout", layoutsDir: __dirname + "/views/layouts"}));
+app.set("view engine", "hbs");
+app.set('views', './views');
+
+	
 
 app.use(routes);
+
 const port = process.env.PORT || 8080;
 async function bootstrap() {
 	try {
@@ -30,4 +41,8 @@ async function bootstrap() {
 
 }
 
-bootstrap();
+app.listen(port, () => {
+	console.log(`now listening for requests on port ${port}...`);
+});
+
+// bootstrap();
