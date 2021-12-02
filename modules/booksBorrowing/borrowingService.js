@@ -3,7 +3,8 @@ const User = require ("../user/userModel")
 const bookBorrowing = require ("./borrowingModel");
 const {bookTitleExists} = require('../Books/bookService')
 const ObjectID = require('mongodb').ObjectId
-const {checkIfBooksExists} = require('./borrowingGuard')
+const {checkIfBooksExists} = require('./borrowingGuard');
+const { UserService } = require("../user/userService");
 
 //FIND BOOK IN STORE BY ID
 booksBorrowingService ={};
@@ -69,6 +70,18 @@ booksBorrowingService.userBorrowBook = async (req,res) => {
         console.error(err)
         return res.status(500).send({message:err.message})
         
+    }
+}
+ 
+booksBorrowingService.getBorrowBookByUser= async (req, res)=>{
+
+    try {
+        const borrowedBooks = await bookBorrowing.find({user:new ObjectID(req.user._id)})
+        if (borrowedBooks.length === 0) return res.status(404).send({message:"sorry, you have not borrowed any books"})
+        return res.status(200).send({message:"successful",data:borrowedBooks})
+    } catch (error) {
+        console.error(error)
+        return res.status(500).send({message:error.message})
     }
 }
 

@@ -11,7 +11,12 @@ booksValidator.createBookValidator = Joi.object().keys({
 //publishDate: Joi.date().required().error(new Error("Publish date address")),
 	pricePerBook: Joi.number().required().error(new Error("price per book is required")),
 	isAvailable:Joi.boolean().required().error(new Error("isAvailable field is required")),
-	description:Joi.string().required().error(new Error("description field is required"))
+	description:Joi.string().required().error(new Error("description field is required")),
+	
+	availableCopies: Joi.number().default(Joi.ref('noOfCopies')).min(0).optional().messages({
+		"string.base": `"No of copies" should be of type 'number'`,
+		"string.empty": `"Phone number" cannot be an empty field`,
+	  }),
 });
 
 

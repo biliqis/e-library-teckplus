@@ -5,7 +5,7 @@ const logger = require("loglevel")
 const morgan = require("morgan")
 const cron = require('node-cron')
 const bodyParser = require('body-parser')
-const { engine } = require('express-handlebars');
+//const { engine } = require('express-handlebars');
 
 const routes = require("./routes");
 
@@ -14,13 +14,21 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(morgan("dev"))
-app.use(express.static("public"));
+//app.use(express.static("public"));
 
-app.engine('hbs', engine({extname: "hbs", defaultLayout: "layout", layoutsDir: __dirname + "/views/layouts"}));
-app.set("view engine", "hbs");
-app.set('views', './views');
+//app.engine('hbs', engine({extname: "hbs", defaultLayout: "layout", layoutsDir: __dirname + "/views/layouts"}));
+//app.set("view engine", "hbs");
+//app.set('views', './views');
 
-	
+app.use((req, res, next) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader(
+	  "Access-Control-Allow-Methods",
+	  "OPTIONS, GET, POST, PUT, PATCH, DELETE"
+	);
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+	next();
+  });	
 
 app.use(routes);
 
@@ -41,8 +49,4 @@ async function bootstrap() {
 
 }
 
-app.listen(port, () => {
-	console.log(`now listening for requests on port ${port}...`);
-});
-
-// bootstrap();
+ bootstrap();

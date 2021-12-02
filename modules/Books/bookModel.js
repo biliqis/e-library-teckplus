@@ -17,6 +17,7 @@ const BookSchema = new Schema(
 
         isAvailable: {
             type: Boolean,
+        
         },
 
         pricePerBook: {

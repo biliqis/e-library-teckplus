@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
 		type: String,
 	},
 
+	username: {
+		type: String,
+	},
+
 	email: {
 		type: String,
 	},
@@ -24,6 +28,10 @@ const userSchema = new mongoose.Schema({
 	},
 
 	phonenumber: {
+		type: String,
+	},
+
+	occupation: {
 		type: String,
 	},
 

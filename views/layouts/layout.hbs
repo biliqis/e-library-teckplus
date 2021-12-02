@@ -1,81 +1,80 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="input.css" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="image">
 
-    <div class="home">
+      <div class="home">
 
         <div class="logo"> LMS </div>
         <div class="login">
-            <h1><span style="color:#6C63FF">User</span> Registration</h1>
+          <h1><span style="color:#6C63FF">User</span> Registration</h1>
 
-              <form>
-                  <div class="input-group">
-                    <div class="input-field col s6">
-                      <input id="first_name" type="text" class="validate">
-                      <label class="active" for="first_name">First Name</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input id="last_name" type="text" class="validate">
-                      <label class="active" for="last_name">Last Name</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input id="email" type="text" class="validate">
-                      <label class="active" for="email">Email</label>
-                    </div>
-                  </div>
+          <form class="form">
+            <div class="input-group">
+              <div class="material-textfield">
+                <input placeholder=" " type="text" />
+                <label>First Name</label>
+              </div>
+              <div class="material-textfield">
+                <input placeholder=" " type="text" />
+                <label>Last Name</label>
+              </div>
+              <div class="material-textfield">
+                <input placeholder=" " type="text" />
+                <label>Email</label>
+              </div>
+            </div>
 
-                  <div class="input-group">
-                    <div class="input-field col s6">
-                      <input id="phone_number" type="text" class="validate">
-                      <label class="active" for="first_name">Phone number</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input id="occupation" type="text" class="validate">
-                      <label class="active" for="occupation">Occupation</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input id="address" type="text" class="validate">
-                      <label class="active" for="address">Address</label>
-                    </div>
-                  </div>
+            <div class="input-group">
+              <div class="material-textfield">
+                <input placeholder=" " type="number" />
+                <label>Phone Number</label>
+              </div>
+              <div class="material-textfield">
+                <input placeholder=" " type="text" />
+                <label>Occupation</label>
+              </div>
+              <div class="material-textfield">
+                <input placeholder=" " type="text" />
+                <label>Address</label>
+              </div>
+            </div>
 
-                  <div class="input-group">
-                    <div class="input-field col s6">
-                      <input id="password" type="password" class="validate">
-                      <label class="active" for="password">Password</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input id="re_password" type="password" class="validate">
-                      <label class="active" for="re_password">Re-enter Password</label>
-                    </div>
-                  </div>
-            </form>
-              <div class="container">
-            <button class="btn" >Hello</button>
-            <div class=""><a>Hello World</a></div>
-    
-  </div>
+
+            <div class="input-group">
+<div class="material-textfield">
+                <input placeholder=" " type="password" />
+                <label>Password</label>
+              </div>
+              <div class="material-textfield">
+                <input placeholder=" " type="text" />
+                <label>Re-enter password</label>
+              </div>
+            </div>
+          </form>
+          <button class="btn">Register</button>
+          <div class="acc">
+            <a href="#">Already have an account?</a>
+          </div>
         </div>
+        <a href="#" class="admin-login">Admin Login Page</a>
 
+
+      </div>
     </div>
-    </div>
-</body>
+  </body>
 
 </html>

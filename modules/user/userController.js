@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const jwtSecretKey = process.env.JWT_SECRET;
 const { UserService } = require("./userService");
 const { Error } = require("mongoose");
+const userModel = require("./userModel");
 
 const UserController = {};
 
@@ -19,6 +20,21 @@ UserController.userSignUp = async (req, res,next) => {
 		// return errorFunction(res,err.message,500)
 	}
 }
+
+//GET SINGLE USER
+UserController.getSingleUser = async (req, res) => {
+	console.log(req.user)
+	try{
+		return res.json({user: req.user});
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ message: err.message })	
+	}
+};
+
+UserController.getAllBorrowedBooks
+
+
 //USERLOGIN LOGIC
 UserController.userLogin = async (req, res) => {
 	try {
@@ -70,4 +86,16 @@ UserController.logOutUser = async (req, res) => {
 		return res.status(403).send(error.message)
 	}
 }
+
+UserController.getAllusers = async (req, res)=>{
+	try {
+		const getUser = await userModel.find()
+		return res.status(200).send({message: "user details sucessful", getUser})
+	} catch (error) {
+		console.err(error)
+		return res.status(500).send({message:err.message})
+	}
+}
+
+
 module.exports = UserController
