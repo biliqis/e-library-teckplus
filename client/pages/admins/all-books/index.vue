@@ -1,61 +1,119 @@
 <template>
     <main>
+    <v-container>
         <v-item-group active-class="primary">
-                <v-row>
-                    
-                </v-row>
+                <div>
+                    <v-row>
+                        <v-col cols="12" md="4" pa-0 class="pa-0">
+                            <div class="d-flex items-center">
+                                <v-form class="d-flex items-center">
+                                    <v-text-field
+                                        v-model="search"
+                                        placeholder="Password"
+                                        append-icon="mdi-magnify"
+                                        dense
+                                        outlined
+                                        block
+                                        height="40"
+                                        :required="true"
+                                        class="ma-0 p-0 mb-3"
+                                    />
+                                    <v-btn
+                                        class="ml-1"
+                                        depressed
+                                        height="40"
+                                        width="40"
+                                        :loading="loading"
+                                        :disabled="loading"
+                                        color="primary"
+                                        @click="searchResult"
+                                        >
+                                        <v-icon>
+                                            mdi-filter
+                                        </v-icon>
+                                    </v-btn>
+                                </v-form>
+                            </div>
+                        </v-col>
+                        <div>
+                        </div>
+                        <v-col cols="12" md="8" class="pa-0">
+                            <v-btn class="ml-auto d-flex" color="primary" outlined depressed ><nuxt-link to="/admins/all-books/add-new-book">Add New Book</nuxt-link></v-btn>
+                        </v-col>
+                    </v-row>
+                </div>
                 <v-row>
                     <v-col  cols="12" >
                         <div class="text-subtitle-1 text-left font-weight-normal grey--text mb-2" v-if="!books">
                             No book has been added yet, please check back !
                         </div>
-                        <template>
-                            <v-simple-table>
-                                <template v-slot:default>
-                                <thead>
-                                    <tr>
-                                    <th class="text-left">
-                                        <div class="text-h6 text-left font-weight-medium grey--text mb-2">Book <span class="primary--text">Title</span></div>
-                                    </th>
-                                    <th class="text-center">
-                                        Available Copies
-                                    </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                    v-for="item in books"
-                                    :key="item.id"
-                                    class="grey--text"
-                                    >
-                                        <td>
-                                            <nuxt-link :to="'/books/' + item.id" class="grey--text">{{ item.title }}</nuxt-link>
-                                        </td>
-                                        <td class="text-center">{{ item.availebleCopies }}</td>
-                                    </tr>
-                                </tbody>
-                                </template>
-                            </v-simple-table>
+                        <template else>
+                             <v-data-table
+                                :headers="headers"
+                                :items="books"
+                                :items-per-page="5"
+                                class="elevation-0"
+                                >
+                                
+                                    <template v-slot:item.actions="{ item }">
+                                        <v-icon
+                                            small
+                                            class="mr-2"
+                                            @click="editItem(item)"
+                                        >
+
+                                            mdi-pencil
+                                        </v-icon>
+                                        </template>
+                                </v-data-table>
                             </template>
                     </v-col>
                 </v-row>
         </v-item-group>
+        </v-container>
     </main>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex"
 export default {
   components: {},
   layout: 'admin',
   data(){
-      return {
-          books: [ 
-              {title: 'Purpose driven life', availebleCopies: 10, id: '121313311'},
-              {title: 'Purpose driven life', availebleCopies: 10, id: '121313331'},
-              {title: 'Purpose driven life', availebleCopies: 10, id: '121313371'},
-              {title: 'Purpose driven life', availebleCopies: 10, id: '121313361'},
-          ]
-      }
-  }
+        return {
+            search: null,
+            loading: false,
+            headers: [
+                {
+                    text: 'Book Title',
+                    align: 'start',
+                    sortable: false,
+                    value: 'bookTitle',
+                },
+                { text: '', value: 'actions', sortable: false },
+                { text: 'Available Copies', value: 'availableCopies' },
+                { text: 'Borrowed Copies', value: 'borrowedCopies' },
+                { text: 'Total', value: 'noOfCopies' },
+            ],
+        },
+  },
+  computed:{
+            ...mapGetters({
+             'allBooks': 'transactions/allBooks'
+            })
+  },
+  methods:{
+        ...mapActions({
+            'getAllBooks': 'transactions/getAllBooks',
+        }),
+        searchResult(){
+            
+        }
+},
+mounted(){
+this.getAllBooks()
+
+}
+  
 }
 </script>
 <style scoped>

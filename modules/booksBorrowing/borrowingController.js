@@ -11,6 +11,11 @@ booksBorrowingController.createUserBorrowBook = async (req,res) => {
     return userBorrowBook(req,res)
 }
 
+booksBorrowingController.createUserBorrowBookId = async (req,res) => {
+    return userBorrowBookById(req,res)
+}
+
+
 booksBorrowingController.getUserBorrowedBooks = async (req,res) => {
     return await getBorrowBookByUser(req,res)
 }

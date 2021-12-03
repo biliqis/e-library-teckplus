@@ -6,8 +6,8 @@
                     <v-item >
                         <v-card  class="d-flex align-center justify-center flex-column pa-2"  height="150" >
                             <nuxt-link to="">
-                                <div class="text-subtitle-1 text-center mx-auto font-weight-normal grey--text">Total number of users </div>
-                                <div class="text-h3 text-center mx-auto primary--text">{{books.length}}</div>
+                                <div class="text-subtitle-1 text-center mx-auto font-weight-normal grey--text">Total number of books </div>
+                                <div class="text-h3 text-center mx-auto primary--text">{{allBooks.length}}</div>
                             </nuxt-link>
                         </v-card>
                     </v-item>
@@ -16,7 +16,8 @@
                     <v-item >
                         <v-card  class="d-flex align-center justify-center flex-column pa-2"  height="150" >
                             <nuxt-link to="">
-                                <div class="text-subtitle-1 text-center mx-auto font-weight-normal grey--text">Number of books borrowed </div>
+                                <div class="text-subtitle-1 text-center mx-auto font-weight-normal grey--text">Total number of user </div>
+                                <div class="text-h3 text-center mx-auto primary--text">{{allUsers.length}}</div>
                             </nuxt-link>
                         </v-card>
                     </v-item >
@@ -55,18 +56,20 @@ export default {
   },
   computed: {
         ...mapGetters({
-            'allUsers': 'administration/allUsers',
+            'allUsers': 'administration/allUsers',  
+            'allBooks': 'transactions/allBooks',
             
         })
     },
     methods: {
         ...mapActions({
             'getAllUsers': 'administration/getAllUsers',
+            'getAllBooks': 'transactions/getAllBooks',
         })
     },
     mounted(){
         this.getAllUsers()
-        console.log(this.allUsers)
+        this.getAllBooks()
         
     }
 
