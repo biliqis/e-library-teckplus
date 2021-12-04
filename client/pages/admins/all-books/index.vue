@@ -1,3 +1,4 @@
+
 <template>
     <main>
     <v-container>
@@ -44,18 +45,18 @@
                 </div>
                 <v-row>
                     <v-col  cols="12" >
-                        <div class="text-subtitle-1 text-left font-weight-normal grey--text mb-2" v-if="!books">
+                        <div class="text-subtitle-1 text-left font-weight-normal grey--text mb-2" v-if="!allBooks">
                             No book has been added yet, please check back !
                         </div>
                         <template else>
                              <v-data-table
                                 :headers="headers"
-                                :items="books"
+                                :items="allBooks"
                                 :items-per-page="5"
                                 class="elevation-0"
                                 >
                                 
-                                    <template v-slot:item.actions="{ item }">
+                                    <template v-slot:item. actions="{ item }">
                                         <v-icon
                                             small
                                             class="mr-2"
@@ -94,20 +95,26 @@ export default {
                 { text: 'Borrowed Copies', value: 'borrowedCopies' },
                 { text: 'Total', value: 'noOfCopies' },
             ],
-        },
+        }
   },
+
   computed:{
             ...mapGetters({
              'allBooks': 'transactions/allBooks'
             })
   },
+
   methods:{
         ...mapActions({
             'getAllBooks': 'transactions/getAllBooks',
         }),
         searchResult(){
             
-        }
+        },
+        editItem(val){
+            console.log(val)
+            this.$router.push(`/admins/all-books/edit/${val._id}`)
+        },
 },
 mounted(){
 this.getAllBooks()

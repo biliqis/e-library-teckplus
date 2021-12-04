@@ -19,6 +19,10 @@ booksValidator.createBookValidator = Joi.object().keys({
 	  }),
 });
 
+borrowedCopies: Joi.number().default(0).min(0).optional().messages({
+    "string.base": `"Borrowed copies" should be of type 'number'`,
+    "string.empty": `"Borrowed copies" cannot be an empty field`,
+  }),
 
 booksValidator.editUserValidator = Joi.object().keys({
 	bookTitle: Joi.string().required().error(new Error("Book is required")),

@@ -9,8 +9,8 @@ const s3 = new AWS.S3({
 })
 
 const uploadImage = async (req, res, next) => {
-    let myFile = req.file.originalname.split(".");
-    const fileType = myFile[myFile.length - 1];
+    // let myFile = req.file.originalname.split(".");
+    // const fileType = myFile[myFile.length - 1];
     const file = await sharp(req.file.buffer).rotate().resize(300, 450, { fit: "fill" }).png().toBuffer();
     const params = {
         Bucket: process.env.BUCKET_NAME,

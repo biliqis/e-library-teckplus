@@ -12,6 +12,7 @@ const _033b6af1 = () => interopDefault(import('../pages/register.vue' /* webpack
 const _50b9ab78 = () => interopDefault(import('../pages/admins/all-books/index.vue' /* webpackChunkName: "pages/admins/all-books/index" */))
 const _1a517aee = () => interopDefault(import('../pages/admins/book-requests/index.vue' /* webpackChunkName: "pages/admins/book-requests/index" */))
 const _00250497 = () => interopDefault(import('../pages/admins/dashboard.vue' /* webpackChunkName: "pages/admins/dashboard" */))
+const _d986a620 = () => interopDefault(import('../pages/admins/register.vue' /* webpackChunkName: "pages/admins/register" */))
 const _8d0d88ea = () => interopDefault(import('../pages/admins/users.vue' /* webpackChunkName: "pages/admins/users" */))
 const _2ce170e6 = () => interopDefault(import('../pages/admins/users.vue/index.vue' /* webpackChunkName: "pages/admins/users.vue/index" */))
 const _152fc720 = () => interopDefault(import('../pages/admins/all-books/add-new-book.vue' /* webpackChunkName: "pages/admins/all-books/add-new-book" */))
@@ -63,6 +64,10 @@ export const routerOptions = {
     path: "/admins/dashboard",
     component: _00250497,
     name: "admins-dashboard"
+  }, {
+    path: "/admins/register",
+    component: _d986a620,
+    name: "admins-register"
   }, {
     path: "/admins/users",
     component: _8d0d88ea,

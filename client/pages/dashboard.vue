@@ -37,6 +37,9 @@ export default {
         })
     },
     mounted(){
+         if(this.user.role ==="admin"){
+            this.$router.push("/admins/dashboard")
+}
         this.getMyBorrowedBooks()
     }
 }

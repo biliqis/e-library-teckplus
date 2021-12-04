@@ -56,8 +56,9 @@ export const actions = {
     },
 
     async borrowBook({ commit }, applicationData) {
+      // console.log(applicationData)
         commit("SET_LOADING", true);
-        await this.$axios.$post("/api/v1/books-borrowing/add-borrowed-book", applicationData);
+        await this.$axios.$post("/api/v1/books-borrowing/borrow-book", applicationData);
         commit("SET_LOADING", false);
     },
 };

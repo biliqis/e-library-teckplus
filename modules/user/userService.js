@@ -65,18 +65,6 @@ UserService.userLogin = async (req, res) => {
 	return { user, token }
 };
 
-UserService.logOutUser = async (req,res)=>{
-	const auth = req.headers["authorization"];
-		let token = auth.split("Bearer")[1].trim();
-		const decoded = jwt.verify(token, process.env.JWT_SECRET);
-		console.log(decoded)
-		let loggedOutToken = jwt.sign({id:decoded.user_id},  jwtSecretKey, {
-			expiresIn:"1s"
-		});
-		req.headers["authorization"] = loggedOutToken
-		console.log(loggedOutToken);
-		return res.status(200).send({message:"logged out successfully", loggedOutToken})
-}
 
 
 

@@ -34,9 +34,12 @@ export const mutations = {
 export const actions = {
   async createNewBook({ commit }, bookData) {
     commit("SET_LOADING", true);
-    await this.$axios.$post("/book/create", bookData);
+    console.log(bookData)
+    await this.$axios.$post("/api/v1/book/create", bookData);
     commit("SET_LOADING", false);
   },
+
+  
 
   async approveRequets({ commit }, bookData) {
     commit("SET_LOADING", true);

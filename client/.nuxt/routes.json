@@ -56,6 +56,13 @@
     "_name": "_00250497"
   },
   {
+    "name": "admins-register",
+    "path": "/admins/register",
+    "component": "/home/temidayo/Desktop/E_library/client/pages/admins/register.vue",
+    "chunkName": "pages/admins/register",
+    "_name": "_d986a620"
+  },
+  {
     "name": "admins-users",
     "path": "/admins/users",
     "component": "/home/temidayo/Desktop/E_library/client/pages/admins/users.vue",

@@ -76,16 +76,16 @@ UserController.deleteUser = async (req, res) => {
 }
 //logout user
 
-UserController.logOutUser = async (req, res) => {
-	try {
-		return await UserService.logOutUser(req,res)
-		// const auth = await req.headers["authorization"];
-		// return res.status(200).send({ message: "log out successful"})
-	} catch (error) {
-		console.error(error)
-		return res.status(403).send(error.message)
-	}
-}
+UserController.logout = async (req, res, next) => {
+	res.cookie("token", "none", {
+	  expires: new Date(Date.now() + 10 * 1000),
+	  httpOnly: true
+	})
+	res.status(200).json({
+	  success: true,
+	  message: "Your are logged out"
+	})
+  }
 
 UserController.getAllusers = async (req, res)=>{
 	try {

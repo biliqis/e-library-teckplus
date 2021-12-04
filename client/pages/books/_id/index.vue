@@ -98,9 +98,9 @@ export default {
                 let currentDate = new Date();
                 let newDate = currentDate.setDate(currentDate.getDate() + this.numberOfDays);
                 const data = {
-                    numberOfBooks: this.numberOfDays,
+                    numberOfDays: this.numberOfDays,
                     bookId: this.bookId,
-                    returnDate: newDate
+                    // returnDate: newDate
                 }
                 console.log(data)
                 await this.borrowBookAction(data)

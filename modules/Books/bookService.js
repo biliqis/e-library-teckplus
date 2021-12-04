@@ -32,7 +32,7 @@ bookService.getAllBooksPaginated = async (page, limit) => {
 
 bookService.createBookService = async (req, book) => {
 	try {
-		let newBook = {...book,approved:"pending"}
+		let newBook = {...book, approved:"pending"}
 		const model = new bookModel(newBook)
 		return model.save()
 	} catch (error) {

@@ -13,7 +13,7 @@ router.post("/user/sign-up", useBodyValidator(UserValidator.createUserValidator)
 router.post("/user/login", useBodyValidator(UserValidator.loginUserValidator), useGuard(userGuard.userloginGuard), userController.userLogin);
 router.put("/update-user/:id", useBodyValidator(UserValidator.editUserValidator),requireAuth,  userController.updateUser);
 router.delete("/delete-user/:id", useBodyValidator(UserValidator.createUserValidator),requireAuth, useGuard(userGuard.userIdExists),	userController.deleteUser);
-router.get("/logout-user",requireAuth, userController.logOutUser)
+router.get("/logout-user",requireAuth, userController.logout)
 router.get("/single-user", requireAuth, userController.getSingleUser)
 router.get("/get-all-user", userController.getAllusers)
 module.exports = router

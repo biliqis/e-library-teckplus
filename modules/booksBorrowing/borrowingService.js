@@ -19,8 +19,9 @@ booksBorrowingService.findBookById = async (req, res) => {
     try {
         const id = req.params.id
         const bookResult = await bookModel.findById(id)
+        return res.status(200).send({message: "success"})
         if (!bookResult) return res.status(404).send({message:"no books found"})
-        return res.json({ bookResult })
+        //return res.json({ bookResult })
     } catch (error) {
         console.error(error)
         return res.status(500).send({message:error.message})
@@ -36,7 +37,8 @@ booksBorrowingService.userBorrowBook = async (req,res) => {
         const bookData = await bookTitleExists(bookTitle)
         console.log(bookData)
         if (!bookData){
-            throw new Error("book not found")
+            return res.status(404).send({message:"book not found"})
+            //throw new Error("book not found")
         }
 
         const bookDto = {
