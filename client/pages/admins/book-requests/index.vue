@@ -99,6 +99,7 @@ export default {
   },
   methods: {
       ...mapActions({
+            'getAllBooks': 'transactions/getAllBooks',
           'getAllPendingRequests': 'administration/getAllPendingRequests'
       })
   },

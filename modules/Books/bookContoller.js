@@ -3,6 +3,7 @@ const bookModel = require("../Books/bookModel")
 const path = require('path')
 const fs = require('fs')
 const {cloudinary} = require ("../../util/cloud")
+const mongoose = require('mongoose')
 
 
 const bookController = {}
@@ -50,15 +51,15 @@ bookController.deleteSingleBook = async (req, res, next) => {
 
 //get single
 bookController.getSingleBook = async (req, res, next) => {
-    const book = await bookService.bookIdExists(req.params.id)
-    return res.status(200).json({ message: "Books retrieved successfully", book })
+    try {
+        const book = await bookService.bookIdExists(req.params.id)
+        return res.status(200).json({ message: "Book retrieved successfully", book })
+        
+    } catch (err) {
+        return res.status(500).send({message:err.message})
+        
+    }
 }
-
-// //approve book
-// bookController.approveBook = async (req, res)=>{
-//     const data =  await bookService.approveBook(req,res);
-//     return data
-// }
 
 bookController.getAllBooksPagination = async (req, res, next) => {
     let { page, limit } = req.query
@@ -77,6 +78,10 @@ bookController.getAllBooksPagination = async (req, res, next) => {
         return res.json({ message: err.message })
     }
 }
+
+// const findPendingBooks = async (req,res)=>{
+//     const pendingRequests = await bookService.fi({})
+// }
 
 module.exports = bookController
 

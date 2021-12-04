@@ -123,6 +123,63 @@ booksBorrowingService.userBorrowBookById = async (req,res) => {
         }
     }
         
+//track pending Books using filter method
+booksBorrowingService.pendingBooks = async (req,res) => {
+    try {
+        const pendings = await bookBorrowing.find({status:"pending"}).lean()
+        if (pendings.length === 0) return res.status(404).json({message:"there are pending borrowed books!"})
+        return res.status(200).send({message:pendings})
+    }catch (error) {
+      console.error(error)  
+      return res.status(500).send({message:err.message})
+    }
+}
+
+//Tracking the return books
+booksBorrowingService.returnBooks = async(req,res)=>{
+    try {
+        const returnedBooks = await bookBorrowing.find({returned:"true"}).lean() 
+        if (returnedBooks.length === 0) return res.status(404).json({message:"no returned books present"})
+        return res.status(200).send({data: returnedBooks})
+
+    } catch (error) {
+        console.error(error)
+        return res.status(500).send({message: err.message})
+        
+    }
+ 
+
+}
+//checkUserBorrowOnce
+booksBorrowingService.checkUserBorrowOnce = async (req,res,next) => {
+    try{
+        const getAllCurrentBorrowed = bookBorrowing.find({returned:false}).lean()
+        
+        // const filterUserId = getAllCurrentBorrowed.filter((book) => book.user === req.user._id)
+        const filterUserId = await getAllCurrentBorrowed.findOne({user:req.user._id})
+        console.log(filterUserId)
+        if (filterUserId)
+            return res.status(400).send({message:"you cannot borrow more than one book"})
+        next()
+    }catch(err){
+        console.error(err)
+        return res.status(500).send({message:err.message})
+
+    }
+}
+//get All approve books
+
+booksBorrowingService.getAllApproveBook = async(req, res)=>{
+    try {
+        const approveBooks = await bookBorrowing.find({approved:true})
+        if(approveBooks === 0)return res.status(200).send({message:"no approved books present"})
+    }catch(err){
+        console.error(err)
+        return res.status(500).send({message:err.message})
+
+    }
+        
+    }
 
 
 

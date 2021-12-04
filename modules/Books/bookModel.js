@@ -19,7 +19,6 @@ const BookSchema = new Schema(
             type: Boolean,
         
         },
-
         requestUsers: {
             type: Array
         },
