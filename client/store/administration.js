@@ -4,14 +4,18 @@ export const state = () => ({
   loading: false,
   allBooks: [],
   bookRequests: [],
-  sameBooks: []
+  sameBooks: [],
+  pendingRequests: [],
+  allApprovedRequests: []
 });
 
 export const getters = {
     allUsers: state => state.allUsers,
     loading: state => state.loading,
     bookRequests: state => state.bookRequests,
-    sameBooks: state => state.sameBooks
+    sameBooks: state => state.sameBooks,
+    pendingRequests: state => state.pendingRequests,
+    allApprovedRequests: state => state.allApprovedRequests
 };
 
 export const mutations = {
@@ -28,6 +32,14 @@ export const mutations = {
 
   SET_SAME_BOOKS(state, sameBooks) {
     state.v = sameBooks
+  },
+
+  SET_PENDING_REQUESTS(state, pendingRequests) {
+    state.pendingRequests = pendingRequests
+  },
+
+  SET_ALL_APPROVED_REQUESTS(state, allApprovedRequests){
+    state.allApprovedRequests = allApprovedRequests
   }
 };
 
@@ -55,7 +67,7 @@ export const actions = {
 
   async getAllBookRequests({ commit },) {
     commit("SET_LOADING", true);
-    const { data, bookDetails }  = await this.$axios.$get("/borrow/all-requests")
+    const { data, bookDetails }  = await this.$axios.$get("/api/v1/admin-approval/borrow/all-requests")
     commit('SET_BOOK_REQUESTS', data, bookDetails)
     commit("SET_LOADING", false)
   },
@@ -67,4 +79,19 @@ export const actions = {
     commit('SET_SAME_BOOKS', data, bookDetails)
     commit("SET_LOADING", false)
   },
+
+  async getAllPendingRequests({ commit },) {
+    commit("SET_LOADING", true);
+    const { data }  = await this.$axios.$get("/api/v1/admin-approval/get-all-pending-requests")
+    commit('SET_PENDING_REQUESTS', data)
+    commit("SET_LOADING", false)
+  },
+
+  async getAllApprovedRequests({ commit },) {
+    commit("SET_LOADING", true);
+    const { data }  = await this.$axios.$get("/admin/get-all-approved-requests")
+    commit('SET_ALL_APPROVED_REQUESTS', data)
+    commit("SET_LOADING", false)
+  },
+
 }

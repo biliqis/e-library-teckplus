@@ -37,20 +37,14 @@
                         </v-col>
                         <div>
                         </div>
-                        <v-col cols="12" md="8" class="pa-0">
-                            <v-btn class="ml-auto d-flex" color="primary" outlined depressed ><nuxt-link to="/admins/all-books/add-new-book">Add New Book</nuxt-link></v-btn>
-                        </v-col>
                     </v-row>
                 </div>
                 <v-row>
                     <v-col  cols="12" >
-                        <div class="text-subtitle-1 text-left font-weight-normal grey--text mb-2" v-if="!allBooks">
-                            No book has been added yet, please check back !
-                        </div>
-                        <template else>
+                        <template>
                              <v-data-table
                                 :headers="headers"
-                                :items="allBooks"
+                                :items="myApprovedBooks"
                                 :items-per-page="5"
                                 class="elevation-0"
                                 >
@@ -73,52 +67,57 @@
     </main>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 export default {
-  components: {},
-  middleware: ['auth', 'isAdmin'],
-  data(){
+    middleware: ['auth', 'isUser'],
+    components: {},
+    data(){
         return {
             search: null,
             loading: false,
             headers: [
-                {
-                    text: 'Book Title',
-                    align: 'start',
-                    sortable: false,
-                    value: 'bookTitle',
-                },
-                { text: '', value: 'actions', sortable: false },
-                { text: 'Available Copies', value: 'availableCopies' },
-                { text: 'Borrowed Copies', value: 'borrowedCopies' },
-                { text: 'Total', value: 'noOfCopies' },
+            {
+                text: 'Book Title',
+                align: 'start',
+                sortable: false,
+                value: 'bookTitle',
+            },
+            { text: 'Author', value: 'availableCopies' },
+            { text: 'My request ID', value: 'availableCopies' },
+            { text: 'Return Date', value: 'availableCopies' },
             ],
         }
-  },
-
-  computed:{
-            ...mapGetters({
-             'allBooks': 'transactions/allBooks'
-            })
-  },
-
-  methods:{
-        ...mapActions({
-            'getAllBooks': 'transactions/getAllBooks',
+    },
+    watch: {
+        
+    },
+    computed: {
+        ...mapGetters({
+            'myApprovedBooks': 'transactions/myApprovedBooks'
         }),
-        searchResult(){
-            
-        },
+        books: function(){
+            if(this.search) {
+                return this.searchResult()
+            }
+            return this.allBooks
+        }
+    },
+    methods: {
+        ...mapActions({
+            'getMyApprovedBooks': 'transactions/getMyApprovedBooks',
+            'getAllBooksSearch': 'transactions/getAllBooksSearch',
+        }),
         editItem(val){
             console.log(val)
             this.$router.push(`/admins/all-books/edit/${val._id}`)
         },
-},
-mounted(){
-this.getAllBooks()
-
-}
-  
+        searchResult(){
+            this.getAllBooksSearch(this.search)
+        }
+    },
+    mounted(){
+        this.getMyApprovedBooks(this.search)
+    }
 }
 </script>
 <style scoped>

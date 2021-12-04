@@ -45,6 +45,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex"
 export default {
+    middleware: ['auth', 'isUser'],
     components: {},
     data(){
         return {

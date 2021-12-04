@@ -29,6 +29,7 @@ export default {
     "~/plugins/mixins/validation",
     "~/plugins/mixins/axios",
     "~/plugins/mixins/user",
+    { src: "plugins/modules/notification.js", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

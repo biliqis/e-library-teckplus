@@ -7,7 +7,7 @@
             
                     <v-form ref="form" v-model="valid" lazy-validation v-on:keyup.native.enter="signIn" >
                         <v-row class="px-10 py-10">
-                            <v-col cols="12" md="6" class="pa-0">
+                            <v-col cols="12" md="6" class="pa-2">
                                 <div>
                                     <v-text-field
                                     v-model="register.firstName"
@@ -84,7 +84,7 @@
                                     />
                                 </div>
                             </v-col>
-                            <v-col cols="12" md="6" class="pa-0">
+                            <v-col cols="12" md="6" class="pa-2">
                                 <div>
                                     <v-text-field
                                     v-model="register.phoneNumber"

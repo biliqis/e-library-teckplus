@@ -96,6 +96,9 @@ export default {
                     password: this.login.password
                 }
             });
+            if(this.user.role === "admin"){
+                this.$router.push("/admins/dashboard/")
+            }
             this.$router.push("/dashboard/")
         } catch(e){
             // console.log(e)

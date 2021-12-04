@@ -7,7 +7,7 @@ const requireAuth = async (req, res, next) => {
 		if (auth) {
 			let token = auth.split("Bearer")[1].trim();
 			const decoded = jwt.verify(token, process.env.JWT_SECRET);
-			console.log(decoded, "just finish splitting the token ---------");
+			// console.log(decoded, "just finish splitting the token ---------");
 			const currentUser = await User.findById(decoded.user_id)
 			if (!currentUser) {
 				return res.status(401).json({ message: "logged out" });
@@ -47,7 +47,6 @@ const checkUser = async (req, res, next) => {
 
 
 const checkIfUserIsAdmin = (req, res) => {
-	console.log(req.user)
 	if (req.user.role === "user") return res.status(400).json({ message: "Sorry you are not allowed to perform this operation" })
 
 }

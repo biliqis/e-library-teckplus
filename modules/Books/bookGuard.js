@@ -1,7 +1,7 @@
 const { Error } = require("mongoose");
 const { bookTitleExists, bookIdExists } = require("./bookService")
 
-bookGuard = {};
+const bookGuard = {};
 
 bookGuard.createBookGuard = async (req, res) => {
     const exists = await bookTitleExists(req.body.bookTitle);

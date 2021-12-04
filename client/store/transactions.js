@@ -61,5 +61,12 @@ export const actions = {
         await this.$axios.$post("/api/v1/books-borrowing/borrow-book", applicationData);
         commit("SET_LOADING", false);
     },
+
+    
+  async editBook({ commit }, formData ) {
+    commit("SET_LOADING", true);
+    await this.$axios.$patch(`/api/v1/book/update/${formData.bookId}`, formData.dataM);
+    commit("SET_LOADING", false);
+  }
 };
 
