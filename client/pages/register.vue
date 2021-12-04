@@ -77,6 +77,7 @@
                                     placeholder="Re-enter Password"
                                     label="Re-enter Password"
                                     dense
+                                    type="password"
                                     outlined
                                     block
                                     :required="true"
