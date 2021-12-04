@@ -29,6 +29,10 @@ export const mutations = {
   SET_BOOK(state, singleBook) {
     state.singleBook = singleBook;
   },
+
+  SET_BOOK_EDITED_DATA(state, { item, value }) {
+    Vue.set(state.singleBook, item, value);
+  },
 };
 
 export const actions = {

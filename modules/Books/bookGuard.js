@@ -6,7 +6,7 @@ const bookGuard = {};
 bookGuard.createBookGuard = async (req, res) => {
     const exists = await bookTitleExists(req.body.bookTitle);
     //if (exists) return res.status(400).send({message:"Book already exists"})
-    if (exists) throw new Error("Book already exists",400)
+    if (exists) throw new Error("Book already exists")
 } 
 
 
@@ -24,6 +24,7 @@ bookGuard.deleteBookGuard = async (req, res,next) => {
 
 //Check if user is admin
 bookGuard.checkIfUserIsAdmin = (req, res) => {
+    console.log(req.body)
 	console.log(req.user.role)
 	if (req.user.role === "user") return res.status(400).json({ message: "Sorry you are not allowed to perform this operation" })
 

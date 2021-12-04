@@ -266,7 +266,7 @@ this.SET_BOOK_EDITED_DATA({ item, value });
                     noOfCopies: this.noOfCopies,
                     publishDate: this.datePublished,
                     description: this.description,
-                    price: this.price,
+                    pricePerBook: this.price,
                     bookCover: this.blob
                 }
                 const data = {bookId: this.bookId, dataM}
