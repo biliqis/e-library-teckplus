@@ -14,6 +14,7 @@ bookService.bookTitleExists = async (bookTitle) => {
 
 bookService.bookIdExists = async (bookId) => {
 	const book = await bookModel.findById(bookId)
+	if (!book) throw new Error("book not found!",404)
 	return book
 }
 
@@ -78,5 +79,7 @@ bookService.approveBook = async (req, res) => {
 	}
 
 }
+
+
 
 module.exports = bookService

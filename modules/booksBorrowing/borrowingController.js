@@ -1,4 +1,4 @@
-const { findBookById,userBorrowBook,getBorrowBookByUser } = require("./borrowingService")
+const { findBookById,userBorrowBook,getBorrowBookByUser, pendingBooks, returnBooks} = require("./borrowingService")
 const { booksBorrowingValidator } = require("./borrowingValidator")
 
 booksBorrowingController ={};
@@ -19,5 +19,15 @@ booksBorrowingController.createUserBorrowBookId = async (req,res) => {
 booksBorrowingController.getUserBorrowedBooks = async (req,res) => {
     return await getBorrowBookByUser(req,res)
 }
+
+
+booksBorrowingController.getPendings = async(req,res)=>{
+    return await pendingBooks(req,res)
+}
+
+booksBorrowingController.getReturnBooks = async(req,res)=>{
+    return await returnBooks(req,res)
+}
+
 
 module.exports = booksBorrowingController

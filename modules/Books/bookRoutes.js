@@ -16,7 +16,6 @@ const checkIfUserIsAdmin = require('../../middleware/auth.guard');
 const bookController = require("../Books/bookContoller");
 
 
-//router.post("/create", upload.single('image'), requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), useBodyValidator(booksValidator.createBookValidator), useGuard(bookGuard.createBookGuard), bookContoller.createBook);
 
 router.post("/create", requireAuth, upload.single('bookCover'), useGuard(bookGuard.checkIfUserIsAdmin), useBodyValidator(booksValidator.createBookValidator), useGuard(bookGuard.createBookGuard), bookContoller.createBook);
 router.patch("/update/:id", requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), useBodyValidator(booksValidator.editUserValidator), useGuard(bookGuard.updateBookGuard), bookController.updateBook);
