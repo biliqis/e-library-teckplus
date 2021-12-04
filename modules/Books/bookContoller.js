@@ -9,18 +9,14 @@ const bookController = {}
 //create a book
 bookController.createBook = async (req, res) => {
     try {
-         // Upload image to cloudinary
-        //  const result = await cloudinary.uploader.upload(req.file.path);
-        const result = req.uploads
-         console.log(result)
+        const result = req.file.location
               let bookObj = {...req.body,bookCover:result.Location}
 
         const bookData = await bookService.createBookService(req,bookObj);
-        console.log(bookData)
         return res.json({ message:"book created successfully",bookData })
     } catch (error) {
         console.log(error)
-        return res.json({ message: "Error Occured" });
+        return res.json({ message: "Error Occurred" });
     }
 }
 

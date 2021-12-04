@@ -66,6 +66,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex"
 export default {
+    middleware: ['auth', 'isUser'],
     data(){
         return {
             bookTitle: 'Purpose Driven Life',

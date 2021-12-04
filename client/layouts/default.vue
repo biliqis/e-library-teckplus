@@ -172,6 +172,23 @@
             </div>
           </v-list-item>
 
+          <v-list-item
+            v-if="user.role==='admin'"
+            router
+            active-class="class-active"
+            :to="items[8].to"
+            class="mt-6 my-7 mx-3"
+          >
+            <div class="d-flex flex-row px-20 align-center">
+              <div class="mr-2 d-flex align-center">
+                <img :src="items[8].icon" class="mr-4" />
+              </div>
+              <v-list-item-title class="text-subtitle-2"
+                >{{ items[8].title }}
+              </v-list-item-title>
+            </div>
+          </v-list-item>
+
         </v-list>
     </v-navigation-drawer>
 
@@ -321,7 +338,7 @@ export default {
       },
       {
         title: "Update Record",
-        to: "/profile",
+        to: "/admins/update-record",
         icon: "/svg/profile.svg",
       },
     ],

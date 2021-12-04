@@ -29,6 +29,10 @@ export const mutations = {
   SET_BOOK(state, singleBook) {
     state.singleBook = singleBook;
   },
+
+  SET_BOOK_EDITED_DATA(state, { item, value }) {
+    Vue.set(state.singleBook, item, value);
+  },
 };
 
 export const actions = {
@@ -61,5 +65,12 @@ export const actions = {
         await this.$axios.$post("/api/v1/books-borrowing/borrow-book", applicationData);
         commit("SET_LOADING", false);
     },
+
+    
+  async editBook({ commit }, formData ) {
+    commit("SET_LOADING", true);
+    await this.$axios.$patch(`/api/v1/book/update/${formData.bookId}`, formData.dataM);
+    commit("SET_LOADING", false);
+  }
 };
 

@@ -46,7 +46,7 @@
 import { mapGetters, mapActions } from "vuex"
 export default {
   components: {},
-  layout: 'admin',
+  middleware: ['auth', 'isAdmin'],
   data(){
       return {
           books: [ 

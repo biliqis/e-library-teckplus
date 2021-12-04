@@ -23,7 +23,6 @@ UserController.userSignUp = async (req, res,next) => {
 
 //GET SINGLE USER
 UserController.getSingleUser = async (req, res) => {
-	console.log(req.user)
 	try{
 		return res.json({user: req.user});
 	} catch (err) {

@@ -129,7 +129,7 @@ accept="image/png, image/jpeg, image/jpg"
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex"
 export default {
-    middleware: ['auth'],
+    middleware: ['auth', 'isAdmin'],
     data(){
         return {
             bookId: null,
@@ -182,13 +182,13 @@ export default {
         price: {
             get() {
                 if (this.singleBook)
-                return this.singleBook.price
-                    ? this.singleBook.price
+                return this.singleBook.pricePerBook
+                    ? this.singleBook.pricePerBook
                     : null;
                 return null;
             },
             set(value) {
-                let item = "price";
+                let item = "pricePerBook";
                 this.SET_BOOK_EDITED_DATA({ item, value });
             },
         },
@@ -214,7 +214,7 @@ export default {
                 return null;
             },
             set(value) {
-                let item = "availableCopies";
+                let item = "noOfCopies";
                 this.SET_BOOK_EDITED_DATA({ item, value });
             },
         },
@@ -260,12 +260,13 @@ this.SET_BOOK_EDITED_DATA({ item, value });
                 let formData = new FormData()
 
                 const dataM = {
+                    bookTitle: this.bookTitle,
                     authorName: this.authorName,
                     isbnNumber: this.isbnNumber,
                     noOfCopies: this.noOfCopies,
                     publishDate: this.datePublished,
                     description: this.description,
-                    price: this.price,
+                    pricePerBook: this.price,
                     bookCover: this.blob
                 }
                 const data = {bookId: this.bookId, dataM}
@@ -275,7 +276,7 @@ this.SET_BOOK_EDITED_DATA({ item, value });
                     text: "Book updated successfully",
                     duration: 1500,
                 })
-                this.$router.push("/admins/all-books/")
+                // this.$router.push("/admins/all-books/")
             } catch(err){
 
             }

@@ -80,7 +80,7 @@ booksBorrowingService.getBorrowBookByUser= async (req, res)=>{
 
     try {
         const borrowedBooks = await bookBorrowing.find({user:new ObjectID(req.user._id)})
-        if (borrowedBooks.length === 0) return res.status(404).send({message:"sorry, you have not borrowed any books"})
+        if (borrowedBooks.length === 0) return res.status(404).send({message:"sorry, you have not borrowed any book"})
         return res.status(200).send({message:"successful",data:borrowedBooks})
     } catch (error) {
         console.error(error)

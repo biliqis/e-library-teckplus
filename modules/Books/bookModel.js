@@ -20,6 +20,10 @@ const BookSchema = new Schema(
         
         },
 
+        requestUsers: {
+            type: Array
+        },
+
         pricePerBook: {
             type: Number
         },

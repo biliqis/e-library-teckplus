@@ -76,9 +76,10 @@
     </main>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex"
 export default {
   components: {},
-  layout: 'admin',
+  middleware: ['auth', 'isAdmin'],
   data(){
       return {
           loading: false,
@@ -90,6 +91,19 @@ export default {
               {title: 'Purpose driven life', availebleCopies: 10, id: '121313361'},
           ]
       }
+  },
+  computed: {
+      ...mapGetters({
+        'pendingRequests': 'administration/pendingRequests'
+      })
+  },
+  methods: {
+      ...mapActions({
+          'getAllPendingRequests': 'administration/getAllPendingRequests'
+      })
+  },
+  mounted(){
+      this.getAllPendingRequests()
   }
 }
 </script>
