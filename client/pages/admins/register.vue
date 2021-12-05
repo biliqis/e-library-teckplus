@@ -77,6 +77,7 @@
                                     placeholder="Re-enter Password"
                                     label="Re-enter Password"
                                     dense
+                                    type="password"
                                     outlined
                                     block
                                     :required="true"
@@ -180,13 +181,14 @@ export default {
                 role: 'admin'
             }
             await this.userRegister(data);
-           let response = await this.$auth.loginWith("local", {
+           await this.$auth.loginWith("local", {
                 data: {
                     email: this.login.usernameEmail,
                     username: this.login.usernameEmail,
                     password: this.login.password
                 }
             });
+            return this.$router.push("/admins/dashboard/")
         } catch(e){
 
         }  

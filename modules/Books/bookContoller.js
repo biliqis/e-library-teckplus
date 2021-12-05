@@ -30,7 +30,6 @@ bookController.searchAll = async (req, res) => {
 bookController.updateBook = async (req, res, next) => {
     const bookId = req.params.id
     // const data = await editUserValidator.validateAsync(req.body);
-    console.log("data",req.body)
     const bookData = await bookService.updateBookService(bookId, req.body);
     return res.json({ message: `Book with the ID ${bookId} is updated successfully`, bookData })
 
@@ -40,7 +39,6 @@ bookController.updateBook = async (req, res, next) => {
 //get all books with pagination
 bookController.getAllBooks = async (req, res) => {
     const allBooks = await bookService.getAllBooksPaginated()
-    console.log(allBooks)
     return res.status(200).json({ message: "Books retrieved successfully", allBooks })
 }
 
@@ -64,7 +62,6 @@ bookController.getSingleBook = async (req, res, next) => {
 
 bookController.getAllBooksPagination = async (req, res, next) => {
     let { page, limit } = req.query
-    console.log(page, limit)
     try {
         const books = await bookService.getAllBooksPaginated(page=1, limit=10)
         const allBooks = await bookModel.find({})

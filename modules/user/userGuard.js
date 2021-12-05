@@ -40,9 +40,7 @@ userGuard.UserValidator = (req, res) => {
 
 
 userGuard.userEmailExists = async (req) => {
-	console.log(req.body)
 	try {
-		console.log(req.body.email)
 		const result = await UserService.findSingle(
 			req.body.email
 		)
@@ -57,7 +55,6 @@ userGuard.userEmailExists = async (req) => {
 }
 
 userGuard.userIdExists = async (req) => {
-	console.log(req.params.id)
 	const result = await userModel.findById(req.params.id)
 	if (!result) {
 		throw new Error("User with id not found!");

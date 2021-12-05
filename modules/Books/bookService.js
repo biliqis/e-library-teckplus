@@ -40,7 +40,6 @@ bookService.createBookService = async (req, book) => {
 		console.error(error)
 	}
 
-	//console.log(model)
 }
 bookService.updateBookService = async (bookId, book) => {
 	return bookModel.findByIdAndUpdate(

@@ -108,7 +108,6 @@ export default {
             'getAllBooksSearch': 'transactions/getAllBooksSearch',
         }),
         editItem(val){
-            console.log(val)
             this.$router.push(`/admins/all-books/edit/${val._id}`)
         },
         searchResult(){
