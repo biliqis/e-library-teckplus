@@ -53,6 +53,7 @@ export const actions = {
     },
 
     async getSingleBook({ commit }, bookId) {
+      console.log(bookId)
         commit("SET_LOADING", true);
         const { book } = await this.$axios.$get("/api/v1/book/get-books/" + bookId);
         commit('SET_BOOK', book);
@@ -60,7 +61,6 @@ export const actions = {
     },
 
     async borrowBook({ commit }, applicationData) {
-      // console.log(applicationData)
         commit("SET_LOADING", true);
         await this.$axios.$post("/api/v1/books-borrowing/borrow-book", applicationData);
         commit("SET_LOADING", false);

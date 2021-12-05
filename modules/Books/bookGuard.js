@@ -24,8 +24,6 @@ bookGuard.deleteBookGuard = async (req, res,next) => {
 
 //Check if user is admin
 bookGuard.checkIfUserIsAdmin = (req, res) => {
-    console.log(req.body)
-	console.log(req.user.role)
 	if (req.user.role === "user") return res.status(400).json({ message: "Sorry you are not allowed to perform this operation" })
 
 }

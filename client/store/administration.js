@@ -46,7 +46,6 @@ export const mutations = {
 export const actions = {
   async createNewBook({ commit }, bookData) {
     commit("SET_LOADING", true);
-    console.log(bookData)
     await this.$axios.$post("/api/v1/book/create", bookData);
     commit("SET_LOADING", false);
   },
@@ -55,7 +54,7 @@ export const actions = {
 
   async approveRequets({ commit }, bookData) {
     commit("SET_LOADING", true);
-    await this.$axios.$post("/borrow/approve", bookData);
+    await this.$axios.$post("/api/v1/admin-approval/approve-book-borrowing", bookData);
   },
 
  async getAllUsers({ commit },) {

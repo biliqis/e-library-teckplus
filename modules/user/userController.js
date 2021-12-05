@@ -11,7 +11,6 @@ const UserController = {};
 UserController.userSignUp = async (req, res,next) => {
 	try {
 		const { user, token } = await UserService.userSignUp(req, res);
-		console.log(user, token)
 		const result = { message: "user created successfully!", user, token };
 		return res.status(201).json(result);
 	} catch (err) {

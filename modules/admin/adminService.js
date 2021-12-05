@@ -22,7 +22,7 @@ AdminService.approveBookBorrowingRequest = async (req, res) => {
     try {
         const { borrowedId } = req.params
         let findPendingBookRequest = await borrowingModel.findById(borrowedId)
-        console.log(findPendingBookRequest)
+        
 
 AdminService.declineBooks = async (req, res)=>{
     const { borrowedId} = req.params
@@ -31,7 +31,6 @@ AdminService.declineBooks = async (req, res)=>{
 
         //FIND THE ACTUAL BOOK
         const book = await bookModel.findById(new ObjectId(findPendingBookRequest.bookId))
-        //console.log(book)
 
         //REDUCE BOOK COPIES
         book.noOfCopies = book.noOfCopies - 1

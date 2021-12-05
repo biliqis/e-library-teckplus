@@ -4,26 +4,26 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _85595362 = () => interopDefault(import('../pages/books/index.vue' /* webpackChunkName: "pages/books/index" */))
-const _e003f294 = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
-const _4209567c = () => interopDefault(import('../pages/inspire.vue' /* webpackChunkName: "pages/inspire" */))
-const _292823ea = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
-const _352d300e = () => interopDefault(import('../pages/profile/index.vue' /* webpackChunkName: "pages/profile/index" */))
-const _033b6af1 = () => interopDefault(import('../pages/register.vue' /* webpackChunkName: "pages/register" */))
-const _a2699c62 = () => interopDefault(import('../pages/shelf/index.vue' /* webpackChunkName: "pages/shelf/index" */))
-const _50b9ab78 = () => interopDefault(import('../pages/admins/all-books/index.vue' /* webpackChunkName: "pages/admins/all-books/index" */))
-const _1a517aee = () => interopDefault(import('../pages/admins/book-requests/index.vue' /* webpackChunkName: "pages/admins/book-requests/index" */))
-const _00250497 = () => interopDefault(import('../pages/admins/dashboard.vue' /* webpackChunkName: "pages/admins/dashboard" */))
-const _d986a620 = () => interopDefault(import('../pages/admins/register.vue' /* webpackChunkName: "pages/admins/register" */))
-const _1acafb4a = () => interopDefault(import('../pages/admins/update-record/index.vue' /* webpackChunkName: "pages/admins/update-record/index" */))
-const _8d0d88ea = () => interopDefault(import('../pages/admins/users.vue' /* webpackChunkName: "pages/admins/users" */))
-const _2ce170e6 = () => interopDefault(import('../pages/admins/users.vue/index.vue' /* webpackChunkName: "pages/admins/users.vue/index" */))
-const _152fc720 = () => interopDefault(import('../pages/admins/all-books/add-new-book.vue' /* webpackChunkName: "pages/admins/all-books/add-new-book" */))
-const _37d52b9a = () => interopDefault(import('../pages/admins/all-books/edit/_id.vue' /* webpackChunkName: "pages/admins/all-books/edit/_id" */))
-const _043d60d6 = () => interopDefault(import('../pages/admins/book-requests/_id.vue' /* webpackChunkName: "pages/admins/book-requests/_id" */))
-const _8d361074 = () => interopDefault(import('../pages/admins/update-record/_id/index.vue' /* webpackChunkName: "pages/admins/update-record/_id/index" */))
-const _12eab1ba = () => interopDefault(import('../pages/books/_id/index.vue' /* webpackChunkName: "pages/books/_id/index" */))
-const _21c44af4 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _920b98d2 = () => interopDefault(import('..\\pages\\books\\index.vue' /* webpackChunkName: "pages/books/index" */))
+const _1be19616 = () => interopDefault(import('..\\pages\\dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
+const _0a81ef0a = () => interopDefault(import('..\\pages\\inspire.vue' /* webpackChunkName: "pages/inspire" */))
+const _e4d7d86c = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages/login" */))
+const _3803bd78 = () => interopDefault(import('..\\pages\\profile\\index.vue' /* webpackChunkName: "pages/profile/index" */))
+const _613bf8d2 = () => interopDefault(import('..\\pages\\register.vue' /* webpackChunkName: "pages/register" */))
+const _17046fd2 = () => interopDefault(import('..\\pages\\shelf\\index.vue' /* webpackChunkName: "pages/shelf/index" */))
+const _22db4347 = () => interopDefault(import('..\\pages\\admins\\all-books\\index.vue' /* webpackChunkName: "pages/admins/all-books/index" */))
+const _27113646 = () => interopDefault(import('..\\pages\\admins\\book-requests\\index.vue' /* webpackChunkName: "pages/admins/book-requests/index" */))
+const _69da30f1 = () => interopDefault(import('..\\pages\\admins\\dashboard.vue' /* webpackChunkName: "pages/admins/dashboard" */))
+const _e338e554 = () => interopDefault(import('..\\pages\\admins\\register.vue' /* webpackChunkName: "pages/admins/register" */))
+const _1d4f4b10 = () => interopDefault(import('..\\pages\\admins\\update-record\\index.vue' /* webpackChunkName: "pages/admins/update-record/index" */))
+const _6d16a4e5 = () => interopDefault(import('..\\pages\\admins\\users.vue' /* webpackChunkName: "pages/admins/users" */))
+const _7565d0e5 = () => interopDefault(import('..\\pages\\admins\\users.vue\\index.vue' /* webpackChunkName: "pages/admins/users.vue/index" */))
+const _6ffd14bd = () => interopDefault(import('..\\pages\\admins\\all-books\\add-new-book.vue' /* webpackChunkName: "pages/admins/all-books/add-new-book" */))
+const _7de83936 = () => interopDefault(import('..\\pages\\admins\\all-books\\edit\\_id.vue' /* webpackChunkName: "pages/admins/all-books/edit/_id" */))
+const _ed3a0af6 = () => interopDefault(import('..\\pages\\admins\\book-requests\\_id.vue' /* webpackChunkName: "pages/admins/book-requests/_id" */))
+const _18a527ec = () => interopDefault(import('..\\pages\\admins\\update-record\\_id\\index.vue' /* webpackChunkName: "pages/admins/update-record/_id/index" */))
+const _c21c803a = () => interopDefault(import('..\\pages\\books\\_id\\index.vue' /* webpackChunkName: "pages/books/_id/index" */))
+const _78271e9a = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
 
@@ -38,83 +38,83 @@ export const routerOptions = {
 
   routes: [{
     path: "/books",
-    component: _85595362,
+    component: _920b98d2,
     name: "books"
   }, {
     path: "/dashboard",
-    component: _e003f294,
+    component: _1be19616,
     name: "dashboard"
   }, {
     path: "/inspire",
-    component: _4209567c,
+    component: _0a81ef0a,
     name: "inspire"
   }, {
     path: "/login",
-    component: _292823ea,
+    component: _e4d7d86c,
     name: "login"
   }, {
     path: "/profile",
-    component: _352d300e,
+    component: _3803bd78,
     name: "profile"
   }, {
     path: "/register",
-    component: _033b6af1,
+    component: _613bf8d2,
     name: "register"
   }, {
     path: "/shelf",
-    component: _a2699c62,
+    component: _17046fd2,
     name: "shelf"
   }, {
     path: "/admins/all-books",
-    component: _50b9ab78,
+    component: _22db4347,
     name: "admins-all-books"
   }, {
     path: "/admins/book-requests",
-    component: _1a517aee,
+    component: _27113646,
     name: "admins-book-requests"
   }, {
     path: "/admins/dashboard",
-    component: _00250497,
+    component: _69da30f1,
     name: "admins-dashboard"
   }, {
     path: "/admins/register",
-    component: _d986a620,
+    component: _e338e554,
     name: "admins-register"
   }, {
     path: "/admins/update-record",
-    component: _1acafb4a,
+    component: _1d4f4b10,
     name: "admins-update-record"
   }, {
     path: "/admins/users",
-    component: _8d0d88ea,
+    component: _6d16a4e5,
     name: "admins-users"
   }, {
     path: "/admins/users.vue",
-    component: _2ce170e6,
+    component: _7565d0e5,
     name: "admins-users.vue"
   }, {
     path: "/admins/all-books/add-new-book",
-    component: _152fc720,
+    component: _6ffd14bd,
     name: "admins-all-books-add-new-book"
   }, {
     path: "/admins/all-books/edit/:id",
-    component: _37d52b9a,
+    component: _7de83936,
     name: "admins-all-books-edit-id"
   }, {
     path: "/admins/book-requests/:id?",
-    component: _043d60d6,
+    component: _ed3a0af6,
     name: "admins-book-requests-id"
   }, {
     path: "/admins/update-record/:id",
-    component: _8d361074,
+    component: _18a527ec,
     name: "admins-update-record-id"
   }, {
     path: "/books/:id",
-    component: _12eab1ba,
+    component: _c21c803a,
     name: "books-id"
   }, {
     path: "/",
-    component: _21c44af4,
+    component: _78271e9a,
     name: "index"
   }],
 

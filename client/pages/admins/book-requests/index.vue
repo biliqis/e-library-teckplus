@@ -57,14 +57,14 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                    v-for="item in books"
+                                    v-for="item in allBooks"
                                     :key="item.id"
                                     class="grey--text"
                                     >
                                         <td>
-                                            <nuxt-link :to="'/admins/book-requests/' + item.id" class="grey--text">{{ item.title }}</nuxt-link>
+                                            <nuxt-link :to="'/admins/book-requests/' + item._id" class="grey--text">{{ item.bookTitle }}</nuxt-link>
                                         </td>
-                                        <td class="text-center">{{ item.availebleCopies }}</td>
+                                        <td class="text-center">{{ item.requestUsers.length }}</td>
                                     </tr>
                                 </tbody>
                                 </template>
@@ -94,6 +94,7 @@ export default {
   },
   computed: {
       ...mapGetters({
+          'allBooks': 'transactions/allBooks',
         'pendingRequests': 'administration/pendingRequests'
       })
   },
@@ -104,7 +105,7 @@ export default {
       })
   },
   mounted(){
-      this.getAllPendingRequests()
+      this.getAllBooks()
   }
 }
 </script>

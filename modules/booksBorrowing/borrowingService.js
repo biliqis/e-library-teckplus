@@ -35,7 +35,6 @@ booksBorrowingService.userBorrowBook = async (req,res) => {
         if (!singleUser) throw new Error("user not found!")
         let bookTitle = req.body.bookTitle
         const bookData = await bookTitleExists(bookTitle)
-        console.log(bookData)
         if (!bookData){
             return res.status(404).send({message:"book not found"})
             //throw new Error("book not found")
@@ -53,6 +52,7 @@ booksBorrowingService.userBorrowBook = async (req,res) => {
         await checkIfBooksExists(bookDto.bookId)
 
         const findBook = await bookModel.findOne({_id:bookDto.bookId})
+        console.log(findBook)
         // // if (!findBook) throw new Error("this book cannot be found!")
         // let checkFunc = await this.checkNumBooks(bookDto.numberOfBooksToBeBorrowed,findBook.numberOfBooksInStore)
          if (findBook.noOfCopies <=1 ) {
@@ -64,10 +64,10 @@ booksBorrowingService.userBorrowBook = async (req,res) => {
         // await findBook.markModified("noOfCopies")
         // await findBook.save()
        
-        this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
-        let newBorrow = new bookBorrowing(bookDto)
-        await newBorrow.save()
-        return res.status(201).send({success:true,message:"request submitted successfully, the moderators will review your request"})
+        // this.startAndEndDates(bookDto.borrowDate,bookDto.numberOfDays)
+        // let newBorrow = new bookBorrowing(bookDto)
+        // await newBorrow.save()
+        // return res.status(201).send({success:true,message:"request submitted successfully, the moderators will review your request"})
 
     } catch (err) {
         console.error(err)
@@ -92,8 +92,13 @@ booksBorrowingService.getBorrowBookByUser= async (req, res)=>{
 
 booksBorrowingService.userBorrowBookById = async (req,res) => {
     try {
+        console.log(req.body.bookId)
+        const findUser = await bookBorrowing.find({userId: new ObjectID(req.user._id)})
+        console.log(findUser)
+        if(findUser.length > 1) throw new Error("You cannot make request, your previous request will be duely attended to!")
         const singleUser = await User.findOne({_id:new ObjectID(req.user._id)})
         if (!singleUser) throw new Error("user not found!")
+        await bookModel.updateOne({_id: new ObjectID(req.body.bookId)},  {$push: { requestUsers: singleUser }})
         let borrowedBooks = req.body.bookId
         let bookData = await bookIdExists(borrowedBooks)
         if (!bookData){
@@ -157,7 +162,6 @@ booksBorrowingService.checkUserBorrowOnce = async (req,res,next) => {
         
         // const filterUserId = getAllCurrentBorrowed.filter((book) => book.user === req.user._id)
         const filterUserId = await getAllCurrentBorrowed.findOne({user:req.user._id})
-        console.log(filterUserId)
         if (filterUserId)
             return res.status(400).send({message:"you cannot borrow more than one book"})
         next()
