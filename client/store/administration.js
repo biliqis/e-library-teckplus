@@ -58,6 +58,12 @@ export const actions = {
     commit("SET_LOADING", false);
   },
 
+  async updateRequests({ commit }, bookData) {
+    commit("SET_LOADING", true);
+    await this.$axios.$patch("/api/v1/admin-approval/updates-record/"+ bookData);
+    commit("SET_LOADING", false);
+  },
+
  async getAllUsers({ commit },) {
     commit("SET_LOADING", true);
     const {getUser}   = await this.$axios.$get("/api/v1/get-all-user")
