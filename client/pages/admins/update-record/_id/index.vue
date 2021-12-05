@@ -159,10 +159,7 @@ export default {
 
             async confirmApproval(){
                 try{
-                    const data = {
-                        requestId: this.approvals
-                    }
-                    await this.updateRequests(this.approvals)
+                    await this.updateRequests(this.bookRequestsId)
                     this.dialog = true;
                     this.$notify({
                         group: 'auth',
