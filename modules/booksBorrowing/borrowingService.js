@@ -5,6 +5,7 @@ const {bookTitleExists,bookIdExists} = require('../Books/bookService')
 const ObjectID = require('mongodb').ObjectId
 const {checkIfBooksExists} = require('./borrowingGuard');
 const { UserService } = require("../user/userService");
+const bookService = require("../Books/bookService");
 
 //FIND BOOK IN STORE BY ID
 booksBorrowingService ={};
@@ -138,7 +139,7 @@ booksBorrowingService.pendingBooks = async (req,res) => {
 //Tracking the return books
 booksBorrowingService.returnBooks = async(req,res)=>{
     try {
-        const returnedBooks = await bookBorrowing.find({returned:"true"}).lean() 
+        const returnedBooks = await bookBorrowing.find({returned:true}).lean() 
         if (returnedBooks.length === 0) return res.status(404).json({message:"no returned books present"})
         return res.status(200).send({data: returnedBooks})
 
@@ -169,10 +170,11 @@ booksBorrowingService.checkUserBorrowOnce = async (req,res,next) => {
 }
 //get All approve books
 
-booksBorrowingService.getAllApproveBook = async(req, res)=>{
+booksBorrowingService.getApproveBook = async(req, res)=>{
     try {
-        const approveBooks = await bookBorrowing.find({approved:true})
+        const approveBooks = await bookBorrowing.find({status:"approved"})
         if(approveBooks === 0)return res.status(200).send({message:"no approved books present"})
+        return res.status(200).send({data: approveBooks})
     }catch(err){
         console.error(err)
         return res.status(500).send({message:err.message})
@@ -181,6 +183,7 @@ booksBorrowingService.getAllApproveBook = async(req, res)=>{
         
     }
 
+    
 
 
 module.exports = booksBorrowingService 

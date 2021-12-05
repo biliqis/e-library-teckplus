@@ -79,6 +79,17 @@ bookService.approveBook = async (req, res) => {
 	}
 
 }
+    //RETURN BOOKS
+bookService.updateReturnBook =  async(req,res)=>{
+	try {
+		 const id = req.params.id
+		 const returnBooks = await bookModel.findByIdAndUpdate(id,{returned:true})
+		 return res.status(200).send({message:"book successfully returned!",returnBook})
+
+	} catch (error) {
+		
+	}
+}
 
 
 

@@ -1,4 +1,4 @@
-const { findBookById,userBorrowBook,getBorrowBookByUser, pendingBooks, returnBooks} = require("./borrowingService")
+const { findBookById,userBorrowBook,getBorrowBookByUser, pendingBooks, returnBooks,getApproveBook} = require("./borrowingService")
 const { booksBorrowingValidator } = require("./borrowingValidator")
 
 booksBorrowingController ={};
@@ -27,6 +27,10 @@ booksBorrowingController.getPendings = async(req,res)=>{
 
 booksBorrowingController.getReturnBooks = async(req,res)=>{
     return await returnBooks(req,res)
+}
+
+booksBorrowingController.getAllApproved = async(req,res)=>{
+    return await getApproveBook(req,res)
 }
 
 

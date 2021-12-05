@@ -2,8 +2,13 @@ const aws = require("aws-sdk");
 const multer  = require('multer');
 const multerS3 = require("multer-s3");
 const path = require("path");
+const { v4: uuidv4 } = require('uuid');
 
-const s3 = new aws.S3();
+
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_Access_Key_Id,
+    secretAccessKey: process.env.AWS_Secret_Key
+});
 
 const multerStorage = multer.diskStorage({
     destination: (req, file, callback) => {
@@ -16,7 +21,7 @@ const multerStorage = multer.diskStorage({
         callback(null, `book-${originName}-${Date.now()}.${extension}`);
     }
 })
-
+   
 const multerFilter = (req, file, cb) => {
     if(file.mimetype.startsWith('image')){
         cb(null, true);
@@ -59,7 +64,9 @@ const upload = multer({
         cb(null, { fieldName: file.fieldname})
       },
       key: (req, file, cb) => {
-        cb(null, Date.now().toString() + file.originalname)
+        
+        cb(null, `${"books"}/${uuidv4()}` + file.originalname)
+        // cb(null, Date.now().toString() + file.originalname)
       }
     })
   })

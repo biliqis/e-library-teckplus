@@ -11,7 +11,8 @@ const bookController = {}
 bookController.createBook = async (req, res) => {
     try {
         const result = req.file.location
-              let bookObj = {...req.body,bookCover:result.Location}
+        console.log(result)
+              let bookObj = {...req.body,bookCover:result}
 
         const bookData = await bookService.createBookService(req,bookObj);
         return res.json({ message:"book created successfully",bookData })
@@ -78,6 +79,8 @@ bookController.getAllBooksPagination = async (req, res, next) => {
         return res.json({ message: err.message })
     }
 }
+
+
 
 // const findPendingBooks = async (req,res)=>{
 //     const pendingRequests = await bookService.fi({})
