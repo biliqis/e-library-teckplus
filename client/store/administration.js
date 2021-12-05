@@ -60,7 +60,7 @@ export const actions = {
 
   async updateRequests({ commit }, bookData) {
     commit("SET_LOADING", true);
-    await this.$axios.$patch("/api/v1/admin-approval/updates-record/"+ bookData);
+    await this.$axios.$patch("/api/v1/admin-approval/update-return-books/"+ bookData);
     commit("SET_LOADING", false);
   },
 
