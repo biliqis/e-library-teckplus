@@ -86,6 +86,8 @@ bookService.updateReturnBook =  async(req,res)=>{
 		 return res.status(200).send({message:"book successfully returned!",returnBook})
 
 	} catch (error) {
+		console.err(error)
+		return res.status(200).send({message:err.message})
 		
 	}
 }
