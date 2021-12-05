@@ -122,13 +122,13 @@ export default {
   },
   computed: {
       ...mapGetters({
-          'singleBook': 'transactions/singleBook',
-            'pendingRequests': 'administration/pendingRequests'
+          'singleBook': 'transactions/singleBook'
       })
   },
   methods: {
       ...mapActions({
             'getSingleBook': 'transactions/getSingleBook',
+            'approveRequests': 'administration/approveRequests',
       }),
       clickToApprove(val){
                 console.log(val)
@@ -154,7 +154,7 @@ export default {
                     const data = {
                         requestId: this.approvals
                     }
-                    await this.approveRequests(this.approvals)
+                    await this.approveRequests(this.$route.params.id)
                     this.dialog = true;
                     this.$notify({
                         group: 'auth',

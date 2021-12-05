@@ -52,9 +52,10 @@ export const actions = {
 
   
 
-  async approveRequets({ commit }, bookData) {
+  async approveRequests({ commit }, bookData) {
     commit("SET_LOADING", true);
-    await this.$axios.$post("/api/v1/admin-approval/approve-book-borrowing", bookData);
+    await this.$axios.$patch("/api/v1/admin-approval/approve-book-borrowing/" + bookData);
+    commit("SET_LOADING", false);
   },
 
  async getAllUsers({ commit },) {

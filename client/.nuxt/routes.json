@@ -3,140 +3,120 @@
     "name": "books",
     "path": "/books",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\books\\\\index.vue",
-    "chunkName": "pages/books/index",
-    "_name": "_920b98d2"
+    "chunkName": "pages/books/index"
   },
   {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\dashboard.vue",
-    "chunkName": "pages/dashboard",
-    "_name": "_1be19616"
+    "chunkName": "pages/dashboard"
   },
   {
     "name": "inspire",
     "path": "/inspire",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\inspire.vue",
-    "chunkName": "pages/inspire",
-    "_name": "_0a81ef0a"
+    "chunkName": "pages/inspire"
   },
   {
     "name": "login",
     "path": "/login",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\login.vue",
-    "chunkName": "pages/login",
-    "_name": "_e4d7d86c"
+    "chunkName": "pages/login"
   },
   {
     "name": "profile",
     "path": "/profile",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\profile\\\\index.vue",
-    "chunkName": "pages/profile/index",
-    "_name": "_3803bd78"
+    "chunkName": "pages/profile/index"
   },
   {
     "name": "register",
     "path": "/register",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\register.vue",
-    "chunkName": "pages/register",
-    "_name": "_613bf8d2"
+    "chunkName": "pages/register"
   },
   {
     "name": "shelf",
     "path": "/shelf",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\shelf\\\\index.vue",
-    "chunkName": "pages/shelf/index",
-    "_name": "_17046fd2"
+    "chunkName": "pages/shelf/index"
   },
   {
     "name": "admins-all-books",
     "path": "/admins/all-books",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\all-books\\\\index.vue",
-    "chunkName": "pages/admins/all-books/index",
-    "_name": "_22db4347"
+    "chunkName": "pages/admins/all-books/index"
   },
   {
     "name": "admins-book-requests",
     "path": "/admins/book-requests",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\book-requests\\\\index.vue",
-    "chunkName": "pages/admins/book-requests/index",
-    "_name": "_27113646"
+    "chunkName": "pages/admins/book-requests/index"
   },
   {
     "name": "admins-dashboard",
     "path": "/admins/dashboard",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\dashboard.vue",
-    "chunkName": "pages/admins/dashboard",
-    "_name": "_69da30f1"
+    "chunkName": "pages/admins/dashboard"
   },
   {
     "name": "admins-register",
     "path": "/admins/register",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\register.vue",
-    "chunkName": "pages/admins/register",
-    "_name": "_e338e554"
+    "chunkName": "pages/admins/register"
   },
   {
     "name": "admins-update-record",
     "path": "/admins/update-record",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\update-record\\\\index.vue",
-    "chunkName": "pages/admins/update-record/index",
-    "_name": "_1d4f4b10"
+    "chunkName": "pages/admins/update-record/index"
   },
   {
     "name": "admins-users",
     "path": "/admins/users",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\users.vue",
-    "chunkName": "pages/admins/users",
-    "_name": "_6d16a4e5"
+    "chunkName": "pages/admins/users"
   },
   {
     "name": "admins-users.vue",
     "path": "/admins/users.vue",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\users.vue\\\\index.vue",
-    "chunkName": "pages/admins/users.vue/index",
-    "_name": "_7565d0e5"
+    "chunkName": "pages/admins/users.vue/index"
   },
   {
     "name": "admins-all-books-add-new-book",
     "path": "/admins/all-books/add-new-book",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\all-books\\\\add-new-book.vue",
-    "chunkName": "pages/admins/all-books/add-new-book",
-    "_name": "_6ffd14bd"
+    "chunkName": "pages/admins/all-books/add-new-book"
   },
   {
     "name": "admins-all-books-edit-id",
     "path": "/admins/all-books/edit/:id",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\all-books\\\\edit\\\\_id.vue",
-    "chunkName": "pages/admins/all-books/edit/_id",
-    "_name": "_7de83936"
+    "chunkName": "pages/admins/all-books/edit/_id"
   },
   {
     "name": "admins-book-requests-id",
     "path": "/admins/book-requests/:id?",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\book-requests\\\\_id.vue",
-    "chunkName": "pages/admins/book-requests/_id",
-    "_name": "_ed3a0af6"
+    "chunkName": "pages/admins/book-requests/_id"
   },
   {
     "name": "admins-update-record-id",
     "path": "/admins/update-record/:id",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\admins\\\\update-record\\\\_id\\\\index.vue",
-    "chunkName": "pages/admins/update-record/_id/index",
-    "_name": "_18a527ec"
+    "chunkName": "pages/admins/update-record/_id/index"
   },
   {
     "name": "books-id",
     "path": "/books/:id",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\books\\\\_id\\\\index.vue",
-    "chunkName": "pages/books/_id/index",
-    "_name": "_c21c803a"
+    "chunkName": "pages/books/_id/index"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\Paul\\\\Documents\\\\e-library-teckplus\\\\client\\\\pages\\\\index.vue",
-    "chunkName": "pages/index",
-    "_name": "_78271e9a"
+    "chunkName": "pages/index"
   }
 ]
