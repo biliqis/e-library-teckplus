@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const userRoutes = require("../../modules/user/userRoutes");
 const bookRoutes = require('../../modules/Books/bookRoutes')
-const booksBorrowing = require("../../modules/booksBorrowing/borrowingRoutes")
+const booksBorrowing=require("../../modules/booksBorrowing/borrowingRoutes")
 const adminRoutes = require("../../modules/admin/adminRoutes")
 
 const viewsRoutes = require("../../modules/views");
