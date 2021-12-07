@@ -78,6 +78,12 @@ bookController.getAllBooksPagination = async (req, res, next) => {
 }
 
 
+bookController.bookReturned = async(req,res)=>{
+await bookService.updateReturnBook(req.params.id)
+return res.status(200).json({ message: `Books with the ID ${req.params.id} successfully updated` })
+}
+
+
 
 // const findPendingBooks = async (req,res)=>{
 //     const pendingRequests = await bookService.fi({})
