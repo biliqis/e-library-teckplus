@@ -10,5 +10,5 @@ router.get("/single-request/:borrowedId",requireAuth, useGuard(AdminBorrowingGua
 router.patch("/approve-book-borrowing/:borrowedId", requireAuth, useGuard(checkIfUserIsAdmin),AdminController.approveBookBorrowing)
 router.get("/get-all-borrow-requests", requireAuth, useGuard(checkIfUserIsAdmin), AdminController.getAllBorrowed);
 router.get("/get-all-pending-requests", requireAuth, useGuard(checkIfUserIsAdmin), AdminController.getAllPendingBooks)
-router.patch("/replace-borrowed-books/:id", requireAuth, useGuard(checkIfUserIsAdmin), AdminController.updatingBookControl)
+router.patch("/replace-borrowed-books/:requestId", requireAuth, useGuard(checkIfUserIsAdmin), AdminController.updatingBookControl)
 module.exports = router;

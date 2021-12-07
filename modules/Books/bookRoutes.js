@@ -22,7 +22,7 @@ router.patch("/update/:id", requireAuth, useGuard(bookGuard.checkIfUserIsAdmin),
 router.get("/get-books", bookController.getAllBooksPagination);
 router.get('/search-books', bookController.searchAll)
 router.get("/get-books/:id", bookController.getSingleBook);
-router.put("/approve-book/:id", requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), bookController.approveBook);
+// router.put("/approve-book/:id", requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), bookController.approveBook);
 router.delete("/delete/:id", requireAuth, useGuard(bookGuard.checkIfUserIsAdmin), bookGuard.deleteBookGuard, bookContoller.deleteSingleBook);
 
 module.exports = router;

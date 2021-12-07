@@ -65,14 +65,38 @@ AdminService.getAllPendingRequest = async (req, res) => {
         return res.status(200).send({ message: "pending books request successful", pendingBooks })
     } catch (error) {
         console.err(error)
-        return res.status(500).send({ message: err.message })
+        return res.status(500).send({ message: error.message })
     }
 }
 
 
-AdminService.updatingBook = async (req, res) => {
-    return await bookModel.findByIdAndUpdate(new ObjectId(req.params.id), 
-        {$inc : {'noOfCopies': +1}}, { new: true })
-    }
+AdminService.updatingBook = async (requestId) => {
+    let increaseAvailableBooks = await AdminService.initiateBookBorrowedAddition(requestId);
+    let initiateBookBorrowedReduction = await AdminService.initiateBookBorrowedReduction(requestId);
+    await AdminService.increaseNumberOfRequest(requestId);
+    return await borrowingModel.findOneAndUpdate({ userId: new ObjectId(requestId) }, { $set: {'status': 'returned'}}, { new: true }).exec();
+}
+
+AdminService.getSingleBorrowRequestService = async (requestId) => {
+	return await borrowingModel.findOne({userId: requestId });
+}
+
+AdminService.initiateBookBorrowedAddition = async (requestId) => {
+	let BorrowRequest = await AdminService.getSingleBorrowRequestService(requestId);
+    return await bookModel.findOneAndUpdate( { bookId: new ObjectId(BorrowRequest.bookId) }, 
+        {$inc : {'borrowedCopies': +1}}, { new: true }).exec();
+}
+
+AdminService.increaseNumberOfRequest = async(requestId) => {
+	let BorrowRequest = await AdminService.getSingleBorrowRequestService(requestId);
+    await bookModel.findOneAndUpdate( {_id: new ObjectId(BorrowRequest.bookId)}, 
+    { $inc: {'numberOfRequest': 1}}, { new: true }).exec();
+}
+
+AdminService.initiateBookBorrowedReduction = async (requestId) => {
+	let BorrowRequest = await AdminService.getSingleBorrowRequestService(requestId);
+    return await bookModel.findOneAndUpdate( { bookId: new ObjectId(BorrowRequest.bookId) }, 
+        {$inc : {'borrowedCopies': -1}}, { new: true }).exec();
+}
 
 module.exports = AdminService
