@@ -10,7 +10,14 @@ AdminController.getSingleRequest = async (req, res, next) => {
 
 //APPROVE BORROWED BOOK
 AdminController.approveBookBorrowing = async (req, res) => {
-	return await adminService.approveBookBorrowingRequest(req, res)
+	try{
+		const { requestId } = req.params;
+		console.log(requestId)
+		const data = await adminService.approveBookBorrowingRequest(requestId)
+		return res.status(200).json({ message: "Request has been approved", data })
+	} catch(err){
+		res.status(500).send(error.message);
+	}
 }
 
 //GET ALL BORROWED BOOKS

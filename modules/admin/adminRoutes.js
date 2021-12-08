@@ -7,7 +7,7 @@ const  AdminController = require ("../admin/adminController");
 const AdminService = require("./adminService");
 
 router.get("/single-request/:borrowedId",requireAuth, useGuard(AdminBorrowingGuard.checkIfBorrowingExistGuard),AdminController.getSingleRequest);
-router.patch("/approve-book-borrowing/:borrowedId", requireAuth, useGuard(checkIfUserIsAdmin),AdminController.approveBookBorrowing)
+router.patch("/approve-book-borrowing/:requestId", requireAuth, useGuard(checkIfUserIsAdmin),AdminController.approveBookBorrowing)
 router.get("/get-all-borrow-requests", requireAuth, useGuard(checkIfUserIsAdmin), AdminController.getAllBorrowed);
 router.get("/get-all-pending-requests", requireAuth, useGuard(checkIfUserIsAdmin), AdminController.getAllPendingBooks)
 router.patch("/replace-borrowed-books/:requestId", requireAuth, useGuard(checkIfUserIsAdmin), AdminController.updatingBookControl)
