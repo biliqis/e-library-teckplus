@@ -12,7 +12,6 @@ AdminController.getSingleRequest = async (req, res, next) => {
 AdminController.approveBookBorrowing = async (req, res) => {
 	try{
 		const { requestId } = req.params;
-		console.log(requestId)
 		const data = await adminService.approveBookBorrowingRequest(requestId)
 		return res.status(200).json({ message: "Request has been approved", data })
 	} catch(err){

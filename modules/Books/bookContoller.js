@@ -11,7 +11,6 @@ const bookController = {}
 bookController.createBook = async (req, res) => {
     try {
         const result = req.file.location
-        console.log(result)
               let bookObj = {...req.body,bookCover:result}
 
         const bookData = await bookService.createBookService(req,bookObj);
