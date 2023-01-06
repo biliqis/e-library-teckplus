@@ -96,7 +96,7 @@ booksBorrowingService.userBorrowBookById = async (req,res) => {
         console.log(req.body.bookId)
         const findUser = await bookBorrowing.find({userId: new ObjectID(req.user._id)})
         console.log(findUser)
-        if(findUser.length > 1) throw new Error("You cannot make request, your previous request will be duely attended to!")
+       // if(findUser.length > 1) throw new Error("You cannot make request, your previous request will be duely attended to!")
         const singleUser = await User.findOne({_id:new ObjectID(req.user._id)})
         if (!singleUser) throw new Error("user not found!")
         await bookModel.updateOne({_id: new ObjectID(req.body.bookId)},  {$push: { requestUsers: singleUser }})

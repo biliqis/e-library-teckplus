@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  web:
+    image: biliqis/library-management:dev
+    build:
+      context: .
+      target: dev
+    container_name: librarymanagement
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    environment:
+      - DB_URI=${DB_URI}
+      - SALT=${SALT}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXP=${JWT_EXP}
+      - CLOUD_NAME=${CLOUD_NAME}
+      - API_KEY=${API_KEY}
+      - API_SECRET=${API_SECRET}
+      - BUCKET_NAME=${BUCKET_NAME}
+      - AWS_Access_Key_Id=${AWS_Access_Key_Id}
+      - AWS_Secret_Key=${AWS_Secret_Key}
+    networks:
+      - librarymanagement-network
+
+networks:
+  librarymanagement-network:
+    name: librarymanagement-network
+
+  
+
+
